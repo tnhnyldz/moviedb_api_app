@@ -2,6 +2,8 @@
 //
 //     final movieModel = movieModelFromJson(jsonString);
 
+// ignore_for_file: prefer_if_null_operators, prefer_null_aware_operators
+
 import 'dart:convert';
 
 MovieModel movieModelFromJson(String str) =>
@@ -41,6 +43,36 @@ class MovieModel {
   bool? video;
   double? voteAverage;
   int? voteCount;
+
+
+  factory MovieModel.fromMap(Map<String, dynamic> json) => MovieModel(
+        adult: json["adult"] == null ? null : json["adult"],
+        backdropPath:
+            json["backdrop_path"] == null ? null : json["backdrop_path"],
+        genreIds: json["genre_ids"] == null
+            ? null
+            : List<int>.from(json["genre_ids"].map((x) => x)),
+        id: json["id"] == null ? null : json["id"],
+        originalLanguage: json["original_language"] == null
+            ? null
+            : json["original_language"],
+        originalTitle:
+            json["original_title"] == null ? null : json["original_title"],
+        overview: json["overview"] == null ? null : json["overview"],
+        popularity:
+            json["popularity"] == null ? null : json["popularity"].toDouble(),
+        posterPath: json["poster_path"] == null ? null : json["poster_path"],
+        releaseDate: json["release_date"] == null
+            ? null
+            : DateTime.parse(json["release_date"]),
+        title: json["title"] == null ? null : json["title"],
+        video: json["video"] == null ? null : json["video"],
+        // ignore: prefer_null_aware_operators
+        voteAverage: json["vote_average"] == null
+            ? null
+            : json["vote_average"].toDouble(),
+        voteCount: json["vote_count"] == null ? null : json["vote_count"],
+      );
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         adult: json["adult"] == null ? null : json["adult"],
@@ -90,33 +122,6 @@ class MovieModel {
         "vote_average": voteAverage == null ? null : voteAverage,
         "vote_count": voteCount == null ? null : voteCount,
       };
-  factory MovieModel.fromMap(Map<String, dynamic> json) => MovieModel(
-        adult: json["adult"] == null ? null : json["adult"],
-        backdropPath:
-            json["backdrop_path"] == null ? null : json["backdrop_path"],
-        genreIds: json["genre_ids"] == null
-            ? null
-            : List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"] == null ? null : json["id"],
-        originalLanguage: json["original_language"] == null
-            ? null
-            : json["original_language"],
-        originalTitle:
-            json["original_title"] == null ? null : json["original_title"],
-        overview: json["overview"] == null ? null : json["overview"],
-        popularity:
-            json["popularity"] == null ? null : json["popularity"].toDouble(),
-        posterPath: json["poster_path"] == null ? null : json["poster_path"],
-        releaseDate: json["release_date"] == null
-            ? null
-            : DateTime.parse(json["release_date"]),
-        title: json["title"] == null ? null : json["title"],
-        video: json["video"] == null ? null : json["video"],
-        voteAverage: json["vote_average"] == null
-            ? null
-            : json["vote_average"].toDouble(),
-        voteCount: json["vote_count"] == null ? null : json["vote_count"],
-      );
 
   Map<String, dynamic> toMap() => {
         "adult": adult == null ? null : adult,
