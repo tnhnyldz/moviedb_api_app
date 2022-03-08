@@ -62,9 +62,9 @@ class MovieModel {
         popularity:
             json["popularity"] == null ? null : json["popularity"].toDouble(),
         posterPath: json["poster_path"] == null ? null : json["poster_path"],
-        releaseDate: json["release_date"] == null
+        releaseDate: json["release_date"],/*  == null 
             ? null
-            : DateTime.parse(json["release_date"]),
+            : DateTime.parse(json["release_date"]), */
         title: json["title"] == null ? null : json["title"],
         video: json["video"] == null ? null : json["video"],
         // ignore: prefer_null_aware_operators
@@ -114,9 +114,9 @@ class MovieModel {
         "overview": overview == null ? null : overview,
         "popularity": popularity == null ? null : popularity,
         "poster_path": posterPath == null ? null : posterPath,
-        "release_date": releaseDate == null
+        "release_date": releaseDate, /* == null
             ? null
-            : "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
+            : "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}", */
         "title": title == null ? null : title,
         "video": video == null ? null : video,
         "vote_average": voteAverage == null ? null : voteAverage,

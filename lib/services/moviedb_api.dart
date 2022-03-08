@@ -7,12 +7,13 @@ import 'package:http/http.dart' as http;
 import 'dart:math';
 
 class MovieApi {
-  static const String _url =
-      'https://api.themoviedb.org/3/movie/popular?api_key=7fa59a378e841e63dae9ca6ee8fe2fcf&language=en-US&page=1';
+  List<String> list = ['popular', 'top_rated'];
 
-  static Future<List<MovieModel>> getFilms() async {
+  static Future<List<MovieModel>> getFilms(String type) async {
+    String url =
+        'https://api.themoviedb.org/3/movie/$type?api_key=7fa59a378e841e63dae9ca6ee8fe2fcf&language=en-US&page=1';
     List<MovieModel> _filmList = [];
-    var result = await Dio().get(_url);
+    var result = await Dio().get(url);
     var resultList = jsonDecode(jsonEncode(result.data))["results"];
     // debugPrint(resultList["results"].toString());
     // debugPrint(resultList.toString());
@@ -20,7 +21,10 @@ class MovieApi {
     if (resultList is List) {
       _filmList = resultList.map((e) => MovieModel.fromJson(e)).toList();
     }
-
     return _filmList;
   }
+
+  // static const String _url2 =
+  //     'https://api.themoviedb.org/3/movie/?api_key=7fa59a378e841e63dae9ca6ee8fe2fcf&language=en-US&page=1';
+
 }
