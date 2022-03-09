@@ -21,6 +21,8 @@ class _HomePageState extends State<HomePage> {
   bool state = false;
   List<String> list = ['popular', 'top_rated', 'upcoming'];
 
+  var _isLoading = true;
+
   void getApi() async {
     _filmListFuture = await MovieApi.getFilms(list[0]);
     _filmListTopRated = await MovieApi.getFilms(list[1]);
@@ -117,7 +119,129 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             )
-          : Center(child: CircularProgressIndicator()),
+          : Center(
+              child: Skeleton(
+                shimmerGradient: LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 67, 72, 75),
+                    Color.fromARGB(255, 173, 178, 181),
+                    Color.fromARGB(255, 67, 72, 75),
+                  ],
+                  stops: [
+                    0.1,
+                    0.5,
+                    0.9,
+                  ],
+                ),
+                isLoading: _isLoading,
+                skeleton: SkeletonItem(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: SkeletonAvatar(
+                            style: SkeletonAvatarStyle(
+                                padding: EdgeInsets.fromLTRB(0, 0, 0, 7),
+                                borderRadius: BorderRadius.circular(35),
+                                shape: BoxShape.rectangle,
+                                width: 180,
+                                height: 50),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            SkeletonAvatar(
+                              style: SkeletonAvatarStyle(
+                                  borderRadius: BorderRadius.circular(35),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                  shape: BoxShape.rectangle,
+                                  width: 160,
+                                  height: 320),
+                            ),
+                            SkeletonAvatar(
+                              style: SkeletonAvatarStyle(
+                                  borderRadius: BorderRadius.circular(35),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                  shape: BoxShape.rectangle,
+                                  width: 160,
+                                  height: 320),
+                            ),
+                            Expanded(
+                              child: SkeletonAvatar(
+                                style: SkeletonAvatarStyle(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(35),
+                                      bottomLeft: Radius.circular(35)),
+                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                  shape: BoxShape.rectangle,
+                                  // width: 60,
+                                  height: 320,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: SkeletonAvatar(
+                            style: SkeletonAvatarStyle(
+                                borderRadius: BorderRadius.circular(35),
+                                padding: EdgeInsets.fromLTRB(0, 7, 0, 7),
+                                shape: BoxShape.rectangle,
+                                width: 180,
+                                height: 50),
+                          ),
+                        ),
+                        Expanded(
+                          child: Row(
+                            children: [
+                              SkeletonAvatar(
+                                style: SkeletonAvatarStyle(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(35),
+                                        topRight: Radius.circular(35)),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                    shape: BoxShape.rectangle,
+                                    width: 160,
+                                    height: 500),
+                              ),
+                              SkeletonAvatar(
+                                style: SkeletonAvatarStyle(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(35),
+                                        topRight: Radius.circular(35)),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                    shape: BoxShape.rectangle,
+                                    width: 160,
+                                    height: 500),
+                              ),
+                              Expanded(
+                                child: SkeletonAvatar(
+                                  style: SkeletonAvatarStyle(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(35),
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+                                    shape: BoxShape.rectangle,
+                                    // width: 60,
+                                    height: 500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                child: HomePage(),
+              ),
+            ),
     );
   }
 }

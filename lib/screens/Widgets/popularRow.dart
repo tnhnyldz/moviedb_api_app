@@ -27,7 +27,7 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
+              borderRadius: BorderRadius.circular(10),
               color: Constants.background2,
             ),
             height: 292,
@@ -103,9 +103,9 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                       textStyle: const TextStyle(fontSize: 20),
                       backgroundColor: Colors.amber),
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     'Details',
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: TextStyle(fontSize: 14, color: Constants.background),
                   ),
                 ),
               ],

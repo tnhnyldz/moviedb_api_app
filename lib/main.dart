@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moviedb_api_app/screens/homepage/HomePage.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
+import 'package:skeletons/skeletons.dart';
 
 import 'constants/consts.dart';
 
