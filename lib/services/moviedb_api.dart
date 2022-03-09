@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:math';
 
 class MovieApi {
-  List<String> list = ['popular', 'top_rated'];
+  // List<String> list = ['popular', 'top_rated','upcoming'];
 
   static Future<List<MovieModel>> getFilms(String type) async {
     String url =

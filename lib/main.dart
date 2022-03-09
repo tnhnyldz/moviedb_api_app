@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 import 'package:moviedb_api_app/screens/homepage/HomePage.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 
+import 'constants/consts.dart';
+
 void main() {
   //Intl.defaultLocale = 'en_EN';
   runApp(MyApp());
@@ -18,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // MovieApi.getFilms();
     return MaterialApp(
+      theme: new ThemeData(scaffoldBackgroundColor: Constants.background),
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: HomePage(),
