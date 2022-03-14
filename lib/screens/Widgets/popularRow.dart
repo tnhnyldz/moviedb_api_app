@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:moviedb_api_app/constants/consts.dart';
+import 'package:moviedb_api_app/screens/detailspage/DetailsPage.dart';
 import 'package:skeletons/skeletons.dart';
 
 import '../../model/movie_model.dart';
@@ -102,7 +103,15 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                   style: TextButton.styleFrom(
                       textStyle: const TextStyle(fontSize: 20),
                       backgroundColor: Colors.amber),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (detailsContext) => DetailsPage(
+                            currentMovie.backdropPath!, currentMovie.title!),
+                      ),
+                    );
+                  },
                   child: Text(
                     'Details',
                     style: TextStyle(fontSize: 14, color: Constants.background),
