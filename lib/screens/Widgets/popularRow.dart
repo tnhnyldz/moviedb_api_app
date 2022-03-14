@@ -64,15 +64,12 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                       itemCount: 5,
                       initialRating:
                           (currentMovie.voteAverage!.toDouble() / 2) - 0.5,
-                      itemSize: 18,
+                      itemSize: 16,
                       ignoreGestures: true,
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
                       ),
-                      /* onRatingUpdate: (rating) => setState(() {
-                      this.rating = rating;
-                    }), */
                     ),
                     const SizedBox(
                       height: 10,
@@ -108,7 +105,12 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                       context,
                       MaterialPageRoute(
                         builder: (detailsContext) => DetailsPage(
-                            currentMovie.backdropPath!, currentMovie.title!),
+                            currentMovie.posterPath!,
+                            currentMovie.title!,
+                            currentMovie.overview!,
+                            currentMovie.voteAverage!,
+                            currentMovie.originalLanguage!,
+                            currentMovie.releaseDate!),
                       ),
                     );
                   },

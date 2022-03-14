@@ -9,7 +9,9 @@ import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:skeletons/skeletons.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -68,6 +70,7 @@ class _HomePageState extends State<HomePage> {
                             itemCount: _filmListFuture.length,
                             itemBuilder: ((context, index) {
                               MovieModel currentMovie = _filmListFuture[index];
+
                               return HorizontalWidget(
                                   currentMovie: currentMovie);
                             })),
@@ -211,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Expanded(
                           child: Row(
-                            children: [
+                            children: const [
                               SkeletonAvatar(
                                 style: SkeletonAvatarStyle(
                                     borderRadius: BorderRadius.only(

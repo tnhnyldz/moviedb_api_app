@@ -6,6 +6,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 MovieModel movieModelFromJson(String str) =>
     MovieModel.fromJson(json.decode(str));
 
@@ -14,6 +16,7 @@ String movieModelToJson(MovieModel data) => json.encode(data.toJson());
 class MovieModel {
   MovieModel({
     this.adult,
+    this.genresName,
     this.backdropPath,
     this.genreIds,
     this.id,
@@ -30,6 +33,7 @@ class MovieModel {
   });
 
   bool? adult;
+  List? genresName;
   String? backdropPath;
   List<int>? genreIds;
   int? id;
@@ -44,8 +48,19 @@ class MovieModel {
   double? voteAverage;
   int? voteCount;
 
+  /* factory MovieModel.fromDetailsJson(Map<String, dynamic> json) {
+    List genresName = json["genres"];
+    List<String> paths = [];
+    for (var value in genresName) {
+      String path = value["name"];
+      paths.add(path);
+    }
+    return MovieModel(
+      genresName: paths,
+    );
+  } */
 
-  factory MovieModel.fromMap(Map<String, dynamic> json) => MovieModel(
+  /* factory MovieModel.fromMap(Map<String, dynamic> json) => MovieModel(
         adult: json["adult"] == null ? null : json["adult"],
         backdropPath:
             json["backdrop_path"] == null ? null : json["backdrop_path"],
@@ -62,7 +77,8 @@ class MovieModel {
         popularity:
             json["popularity"] == null ? null : json["popularity"].toDouble(),
         posterPath: json["poster_path"] == null ? null : json["poster_path"],
-        releaseDate: json["release_date"],/*  == null 
+        releaseDate: json["release_date"],
+        /*  == null 
             ? null
             : DateTime.parse(json["release_date"]), */
         title: json["title"] == null ? null : json["title"],
@@ -72,7 +88,7 @@ class MovieModel {
             ? null
             : json["vote_average"].toDouble(),
         voteCount: json["vote_count"] == null ? null : json["vote_count"],
-      );
+      ); */
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
         adult: json["adult"] == null ? null : json["adult"],
@@ -114,7 +130,8 @@ class MovieModel {
         "overview": overview == null ? null : overview,
         "popularity": popularity == null ? null : popularity,
         "poster_path": posterPath == null ? null : posterPath,
-        "release_date": releaseDate, /* == null
+        "release_date": releaseDate,
+        /* == null
             ? null
             : "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}", */
         "title": title == null ? null : title,
@@ -123,7 +140,7 @@ class MovieModel {
         "vote_count": voteCount == null ? null : voteCount,
       };
 
-  Map<String, dynamic> toMap() => {
+  /* Map<String, dynamic> toMap() => {
         "adult": adult == null ? null : adult,
         "backdrop_path": backdropPath == null ? null : backdropPath,
         "genre_ids": genreIds == null
@@ -142,5 +159,5 @@ class MovieModel {
         "video": video == null ? null : video,
         "vote_average": voteAverage == null ? null : voteAverage,
         "vote_count": voteCount == null ? null : voteCount,
-      };
+      }; */
 }
