@@ -80,7 +80,7 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                     //Icon(Icons.star_border_outlined),
                     Text(
                       "Yayın Yılı: " +
-                          DateFormat.yMMMd().format(
+                          DateFormat.y().format(
                             DateTime.parse(
                               currentMovie.releaseDate.toString(),
                             ),
