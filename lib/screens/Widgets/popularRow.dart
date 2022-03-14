@@ -104,13 +104,7 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (detailsContext) => DetailsPage(
-                            currentMovie.posterPath!,
-                            currentMovie.title!,
-                            currentMovie.overview!,
-                            currentMovie.voteAverage!,
-                            currentMovie.originalLanguage!,
-                            currentMovie.releaseDate!),
+                        builder: (detailsContext) => DetailsPage(currentMovie),
                       ),
                     );
                   },

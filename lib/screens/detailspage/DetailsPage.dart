@@ -6,17 +6,13 @@ import 'package:moviedb_api_app/model/movie_model.dart';
 
 class DetailsPage extends StatefulWidget {
   // DetailsPage({Key? key}) : super(key: key);
-  String posterpath, title, overview, orj_lang;
+  final MovieModel currentMovie;
+  /*String posterpath, title, overview, orj_lang;
   DateTime releaseDate;
-  double vote;
+  double vote;*/
 
   DetailsPage(
-    this.posterpath,
-    this.title,
-    this.overview,
-    this.vote,
-    this.orj_lang,
-    this.releaseDate,
+    this.currentMovie,
   );
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -38,7 +34,8 @@ class _DetailsPageState extends State<DetailsPage> {
               // ),
               background: Image.network(
                 // "https://source.unsplash.com/812jL3jmV1w",
-                "https://image.tmdb.org/t/p/w500" + widget.posterpath,
+                "https://image.tmdb.org/t/p/w500" +
+                    widget.currentMovie.backdropPath.toString(),
                 scale: 1.0,
                 fit: BoxFit.cover,
               ),
@@ -53,7 +50,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.all(6.0),
                   child: Text(
-                    widget.title.toString(),
+                    widget.currentMovie.title.toString(),
                     style: GoogleFonts.lora(
                       textStyle: const TextStyle(
                         backgroundColor: Colors.black,
@@ -70,7 +67,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   color: Colors.black,
                   child: SingleChildScrollView(
                     child: Text(
-                      widget.overview.toString(),
+                      widget.currentMovie.overview.toString(),
                       style: GoogleFonts.roboto(
                         textStyle: const TextStyle(
                           backgroundColor: Colors.black,
@@ -107,7 +104,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               ),
                             ),
                             Text(
-                              widget.vote.toString(),
+                              widget.currentMovie.voteCount.toString(),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -135,7 +132,9 @@ class _DetailsPageState extends State<DetailsPage> {
                                 ),
                               ),
                               Text(
-                                widget.orj_lang.toString().toUpperCase(),
+                                widget.currentMovie.originalLanguage
+                                    .toString()
+                                    .toUpperCase(),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -164,7 +163,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             Text(
                               DateFormat.y().format(
                                 DateTime.parse(
-                                  widget.releaseDate.toString(),
+                                  widget.currentMovie.releaseDate.toString(),
                                 ),
                               ),
                               style: const TextStyle(
