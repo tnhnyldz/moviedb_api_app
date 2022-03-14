@@ -9,7 +9,9 @@ import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:skeletons/skeletons.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -61,13 +63,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(
                       height: 300,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _filmListFuture.length,
-                          itemBuilder: ((context, index) {
-                            MovieModel currentMovie = _filmListFuture[index];
-                            return HorizontalWidget(currentMovie: currentMovie);
-                          })),
+                      child: Scrollbar(
+                        showTrackOnHover: true,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _filmListFuture.length,
+                            itemBuilder: ((context, index) {
+                              MovieModel currentMovie = _filmListFuture[index];
+
+                              return HorizontalWidget(
+                                  currentMovie: currentMovie);
+                            })),
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4.0),
@@ -81,16 +88,20 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )),
                     ),
-                    SizedBox(
-                      height: 300,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _filmListTopRated.length,
-                          itemBuilder: ((context, index) {
-                            MovieModel currentModel2 = _filmListTopRated[index];
-                            return HorizontalWidget(
-                                currentMovie: currentModel2);
-                          })),
+                    Scrollbar(
+                      showTrackOnHover: true,
+                      child: SizedBox(
+                        height: 300,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _filmListTopRated.length,
+                            itemBuilder: ((context, index) {
+                              MovieModel currentModel2 =
+                                  _filmListTopRated[index];
+                              return HorizontalWidget(
+                                  currentMovie: currentModel2);
+                            })),
+                      ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(4.0),
@@ -104,16 +115,21 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )),
                     ),
-                    SizedBox(
-                      height: 300,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _filmListFuture.length,
-                          itemBuilder: ((context, index) {
-                            MovieModel currentModel3 = _filmListTopRated[index];
-                            return HorizontalWidget(
-                                currentMovie: currentModel3);
-                          })),
+                    Scrollbar(
+                      // trackVisibility: true,
+                      showTrackOnHover: true,
+                      child: SizedBox(
+                        height: 300,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _filmListFuture.length,
+                            itemBuilder: ((context, index) {
+                              MovieModel currentModel3 =
+                                  _filmListTopRated[index];
+                              return HorizontalWidget(
+                                  currentMovie: currentModel3);
+                            })),
+                      ),
                     ),
                   ],
                 ),
@@ -198,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Expanded(
                           child: Row(
-                            children: [
+                            children: const [
                               SkeletonAvatar(
                                 style: SkeletonAvatarStyle(
                                     borderRadius: BorderRadius.only(
