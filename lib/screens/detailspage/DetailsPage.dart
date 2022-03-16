@@ -187,8 +187,13 @@ class _DetailsPageState extends State<DetailsPage> {
                           ],
                         ),
                       ),
-                      Container(), //Önerilen Listesi Eklenecek
                     ],
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    'Cast',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
                 Container(
