@@ -125,7 +125,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         );
                       } else if (snapshot.hasError) {
                         return const Center(
-                          child: Text("data yok"),
+                          child: Text("dasta yok"),
                         );
                       } else {
                         return const Center(
