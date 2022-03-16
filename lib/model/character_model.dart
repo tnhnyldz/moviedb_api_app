@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 CharacterModel characterModelFromJson(String str) =>
     CharacterModel.fromJson(json.decode(str));
 
@@ -39,37 +41,33 @@ class CharacterModel {
   int? order;
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) => CharacterModel(
-        adult: json["adult"] == null ? null : json["adult"],
-        gender: json["gender"] == null ? null : json["gender"],
-        id: json["id"] == null ? null : json["id"],
-        knownForDepartment: json["known_for_department"] == null
-            ? null
-            : json["known_for_department"],
-        name: json["name"] == null ? null : json["name"],
-        originalName:
-            json["original_name"] == null ? null : json["original_name"],
+        adult: json["adult"],
+        gender: json["gender"],
+        id: json["id"],
+        knownForDepartment: json["known_for_department"],
+        name: json["name"],
+        originalName: json["original_name"],
         popularity:
             json["popularity"] == null ? null : json["popularity"].toDouble(),
-        profilePath: json["profile_path"] == null ? null : json["profile_path"],
-        castId: json["cast_id"] == null ? null : json["cast_id"],
-        character: json["character"] == null ? null : json["character"],
-        creditId: json["credit_id"] == null ? null : json["credit_id"],
-        order: json["order"] == null ? null : json["order"],
+        profilePath: json["profile_path"],
+        castId: json["cast_id"],
+        character: json["character"],
+        creditId: json["credit_id"],
+        order: json["order"],
       );
 
   Map<String, dynamic> toJson() => {
-        "adult": adult == null ? null : adult,
-        "gender": gender == null ? null : gender,
-        "id": id == null ? null : id,
-        "known_for_department":
-            knownForDepartment == null ? null : knownForDepartment,
-        "name": name == null ? null : name,
-        "original_name": originalName == null ? null : originalName,
-        "popularity": popularity == null ? null : popularity,
-        "profile_path": profilePath == null ? null : profilePath,
-        "cast_id": castId == null ? null : castId,
-        "character": character == null ? null : character,
-        "credit_id": creditId == null ? null : creditId,
-        "order": order == null ? null : order,
+        "adult": adult,
+        "gender": gender,
+        "id": id,
+        "known_for_department": knownForDepartment,
+        "name": name,
+        "original_name": originalName,
+        "popularity": popularity,
+        "profile_path": profilePath,
+        "cast_id": castId,
+        "character": character,
+        "credit_id": creditId,
+        "order": order,
       };
 }

@@ -1,3 +1,6 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +22,15 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  //Future<List<CharacterModel>>
+  late Future<List<CharacterModel>> _characterList;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _characterList = CharacterApi.getCharacter(widget.currentMovie.id!);
+  }
+
   @override
   Widget build(BuildContext context) {
     CharacterApi.getCharacter(widget.currentMovie.id!);
@@ -180,14 +191,63 @@ class _DetailsPageState extends State<DetailsPage> {
                     ],
                   ),
                 ),
-                // Container(
-                //     child: Center(
-                //   child: FutureBuilder<List<CharacterModel>>(
-                //     future:
-                //         CharacterApi.getCharacter(widget.currentCharacter!.id!),
-                //     builder: (context, snapshot) {},
-                //   ),
-                // ))
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  width: 200,
+                  height: 150,
+                  color: Colors.black38,
+                  child: FutureBuilder<List<CharacterModel>>(
+                    future: _characterList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<CharacterModel> _chrList = snapshot.data!;
+                        return ListView.builder(
+                          //padding: const EdgeInsets.symmetric(horizontal: 10),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            var activeCast = _chrList[index];
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: activeCast
+                                                    .profilePath !=
+                                                null
+                                            ? CachedNetworkImageProvider(
+                                                'https://image.tmdb.org/t/p/w500' +
+                                                    activeCast.profilePath
+                                                        .toString(),
+                                              )
+                                            : const CachedNetworkImageProvider(
+                                                'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
+                                        radius: 50,
+                                      ),
+                                      Text(
+                                        activeCast.name.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                )
               ],
             ),
           ),
