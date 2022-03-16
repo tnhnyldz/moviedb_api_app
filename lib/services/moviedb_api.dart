@@ -15,9 +15,7 @@ class MovieApi {
     List<MovieModel> _filmList = [];
     var result = await Dio().get(url);
     var resultList = jsonDecode(jsonEncode(result.data))["results"];
-    // debugPrint(resultList["results"].toString());
-    // debugPrint(resultList.toString());
-    // var parse = jsonDecode(result.data[0]["page"]);
+
     if (resultList is List) {
       _filmList = resultList.map((e) => MovieModel.fromJson(e)).toList();
     }

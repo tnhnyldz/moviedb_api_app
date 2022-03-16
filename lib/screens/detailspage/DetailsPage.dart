@@ -1,34 +1,49 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:moviedb_api_app/model/character_model.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 
 import '../../constants/consts.dart';
 import '../Widgets/popularRow.dart';
+import 'package:moviedb_api_app/services/character_api.dart';
 
 class DetailsPage extends StatefulWidget {
   final MovieModel currentMovie;
+  CharacterModel? currentCharacter;
 
-  DetailsPage(
-    this.currentMovie,
-  );
+  DetailsPage(this.currentMovie);
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+
   late Future<List<MovieModel>> _recList;
   @override
   void initState() {
     super.initState();
     _recList = MovieApi.getRecommendations(widget.currentMovie.id!);
+
+  late Future<List<CharacterModel>> _characterList;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _characterList = CharacterApi.getCharacter(widget.currentMovie.id!);
+
   }
 
   @override
   Widget build(BuildContext context) {
+    CharacterApi.getCharacter(widget.currentMovie.id!);
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -56,7 +71,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   height: 150,
                   color: Colors.black,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Text(
                     widget.currentMovie.title.toString(),
                     style: GoogleFonts.lora(
@@ -70,7 +85,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   height: 160,
                   color: Colors.black,
                   child: SingleChildScrollView(
@@ -330,6 +345,69 @@ class _DetailsPageState extends State<DetailsPage> {
                     style: TextStyle(fontSize: 14, color: Constants.background),
                   ),
                 ),
+                Container(
+                  child: Text(
+                    'Cast',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  width: 200,
+                  height: 150,
+                  color: Colors.black38,
+                  child: FutureBuilder<List<CharacterModel>>(
+                    future: _characterList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<CharacterModel> _chrList = snapshot.data!;
+                        return ListView.builder(
+                          //padding: const EdgeInsets.symmetric(horizontal: 10),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            var activeCast = _chrList[index];
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: activeCast
+                                                    .profilePath !=
+                                                null
+                                            ? CachedNetworkImageProvider(
+                                                'https://image.tmdb.org/t/p/w500' +
+                                                    activeCast.profilePath
+                                                        .toString(),
+                                              )
+                                            : const CachedNetworkImageProvider(
+                                                'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
+                                        radius: 50,
+                                      ),
+                                      Text(
+                                        activeCast.name.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                )
               ],
             ),
           ),
