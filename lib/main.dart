@@ -7,7 +7,6 @@ import 'package:skeletons/skeletons.dart';
 import 'constants/consts.dart';
 
 void main() {
-  //Intl.defaultLocale = 'en_EN';
   runApp(MyApp());
 }
 

@@ -79,14 +79,16 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: const EdgeInsets.all(4.0),
                       alignment: Alignment.centerLeft,
-                      child: Text('Top Rated',
-                          style: GoogleFonts.roboto(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: .7,
-                              fontSize: 42,
-                            ),
-                          )),
+                      child: Text(
+                        'Top Rated',
+                        style: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            letterSpacing: .7,
+                            fontSize: 42,
+                          ),
+                        ),
+                      ),
                     ),
                     Scrollbar(
                       showTrackOnHover: true,
@@ -121,14 +123,14 @@ class _HomePageState extends State<HomePage> {
                       child: SizedBox(
                         height: 300,
                         child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _filmListFuture.length,
-                            itemBuilder: ((context, index) {
-                              MovieModel currentModel3 =
-                                  _filmListTopRated[index];
-                              return HorizontalWidget(
-                                  currentMovie: currentModel3);
-                            })),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: _filmListFuture.length,
+                          itemBuilder: ((context, index) {
+                            MovieModel currentModel3 = _filmListTopRated[index];
+                            return HorizontalWidget(
+                                currentMovie: currentModel3);
+                          }),
+                        ),
                       ),
                     ),
                   ],
