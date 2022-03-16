@@ -187,7 +187,6 @@ class _DetailsPageState extends State<DetailsPage> {
                           ],
                         ),
                       ),
-                      //Önerilen Listesi Eklenecek
                     ],
                   ),
                 ),
