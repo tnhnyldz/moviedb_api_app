@@ -5,7 +5,6 @@ import 'package:moviedb_api_app/services/character_api.dart';
 import 'constants/consts.dart';
 
 void main() {
-  //Intl.defaultLocale = 'en_EN';
   runApp(MyApp());
 }
 
