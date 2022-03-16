@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:moviedb_api_app/model/character_model.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
+import 'package:moviedb_api_app/services/character_api.dart';
 
 class DetailsPage extends StatefulWidget {
   // DetailsPage({Key? key}) : super(key: key);
   final MovieModel currentMovie;
+  CharacterModel? currentCharacter;
   /*String posterpath, title, overview, orj_lang;
   DateTime releaseDate;
   double vote;*/
 
-  DetailsPage(
-    this.currentMovie,
-  );
+  DetailsPage(this.currentMovie);
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  //Future<List<CharacterModel>>
   @override
   Widget build(BuildContext context) {
+    CharacterApi.getCharacter(widget.currentMovie.id!);
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -48,7 +50,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   height: 150,
                   color: Colors.black,
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Text(
                     widget.currentMovie.title.toString(),
                     style: GoogleFonts.lora(
@@ -62,7 +64,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   height: 160,
                   color: Colors.black,
                   child: SingleChildScrollView(
@@ -86,7 +88,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(6.0),
+                        padding: const EdgeInsets.all(6.0),
                         height: 100,
                         color: Colors.black,
                         child: Column(
@@ -114,7 +116,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         ),
                       ),
                       Container(
-                          padding: EdgeInsets.all(6.0),
+                          padding: const EdgeInsets.all(6.0),
                           height: 100,
                           color: Colors.black,
                           child: Column(
@@ -125,7 +127,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                 size: 40.0,
                               ),
                               const Text(
-                                "language:",
+                                "Language:",
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
@@ -145,7 +147,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       Container(
                         height: 100,
                         color: Colors.black,
-                        padding: EdgeInsets.all(6.0),
+                        padding: const EdgeInsets.all(6.0),
                         child: Column(
                           children: [
                             const Icon(
@@ -154,7 +156,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               size: 40.0,
                             ),
                             const Text(
-                              "Year",
+                              "Year:",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -174,9 +176,18 @@ class _DetailsPageState extends State<DetailsPage> {
                           ],
                         ),
                       ),
+                      Container(), //Önerilen Listesi Eklenecek
                     ],
                   ),
                 ),
+                // Container(
+                //     child: Center(
+                //   child: FutureBuilder<List<CharacterModel>>(
+                //     future:
+                //         CharacterApi.getCharacter(widget.currentCharacter!.id!),
+                //     builder: (context, snapshot) {},
+                //   ),
+                // ))
               ],
             ),
           ),

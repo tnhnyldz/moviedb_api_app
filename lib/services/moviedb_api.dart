@@ -15,26 +15,10 @@ class MovieApi {
     List<MovieModel> _filmList = [];
     var result = await Dio().get(url);
     var resultList = jsonDecode(jsonEncode(result.data))["results"];
-    // debugPrint(resultList["results"].toString());
-    // debugPrint(resultList.toString());
-    // var parse = jsonDecode(result.data[0]["page"]);
+
     if (resultList is List) {
       _filmList = resultList.map((e) => MovieModel.fromJson(e)).toList();
     }
     return _filmList;
   }
-  /* static Future<MovieModel> fetchAllDetails(String id) async {
-    final response = await http.get(Uri.parse('https://api.themoviedb.org/3/' +
-        "movie/" +
-        id +
-        '?api_key=' +
-        '7fa59a378e841e63dae9ca6ee8fe2fcf' +
-        "&append_to_response=images,videos,credits"));
-    var dataDecoded = jsonDecode(response.body);
-    return MovieModel.fromDetailsJson(dataDecoded);
-  } */
-
-  // static const String _url2 =
-  //     'https://api.themoviedb.org/3/movie/?api_key=7fa59a378e841e63dae9ca6ee8fe2fcf&language=en-US&page=1';
-
 }
