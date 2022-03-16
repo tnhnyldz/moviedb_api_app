@@ -24,21 +24,13 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-
   late Future<List<MovieModel>> _recList;
+  late Future<List<CharacterModel>> _characterList;
   @override
   void initState() {
     super.initState();
     _recList = MovieApi.getRecommendations(widget.currentMovie.id!);
-
-  late Future<List<CharacterModel>> _characterList;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
     _characterList = CharacterApi.getCharacter(widget.currentMovie.id!);
-
   }
 
   @override
@@ -110,6 +102,77 @@ class _DetailsPageState extends State<DetailsPage> {
                 Container(
                   margin: EdgeInsets.only(left: 15.0),
                   child: Text(
+                    "Cast",
+                    style: GoogleFonts.roboto(
+                      textStyle: TextStyle(
+                        color: Colors.white,
+                        letterSpacing: .7,
+                        fontSize: 38,
+                      ),
+                    ),
+                  ),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 15),
+                  width: 200,
+                  height: 150,
+                  color: Colors.black38,
+                  child: FutureBuilder<List<CharacterModel>>(
+                    future: _characterList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<CharacterModel> _chrList = snapshot.data!;
+                        return ListView.builder(
+                          //padding: const EdgeInsets.symmetric(horizontal: 10),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            var activeCast = _chrList[index];
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Column(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: activeCast
+                                                    .profilePath !=
+                                                null
+                                            ? CachedNetworkImageProvider(
+                                                'https://image.tmdb.org/t/p/w500' +
+                                                    activeCast.profilePath
+                                                        .toString(),
+                                              )
+                                            : const CachedNetworkImageProvider(
+                                                'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
+                                        radius: 50,
+                                      ),
+                                      Text(
+                                        activeCast.name.toString(),
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 15.0),
+                  child: Text(
                     "Recommended",
                     style: GoogleFonts.roboto(
                       textStyle: TextStyle(
@@ -121,7 +184,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
-                  height: 318,
+                  height: 330,
                   color: Colors.black,
                   child: FutureBuilder<List<MovieModel>>(
                     future: _recList,
@@ -150,6 +213,63 @@ class _DetailsPageState extends State<DetailsPage> {
                     },
                   ),
                 ),
+                // Container(
+                //   padding: const EdgeInsets.only(top: 15, bottom: 15),
+                //   width: 200,
+                //   height: 150,
+                //   color: Colors.black38,
+                //   child: FutureBuilder<List<CharacterModel>>(
+                //     future: _characterList,
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         List<CharacterModel> _chrList = snapshot.data!;
+                //         return ListView.builder(
+                //           //padding: const EdgeInsets.symmetric(horizontal: 10),
+                //           scrollDirection: Axis.horizontal,
+                //           itemCount: 5,
+                //           itemBuilder: (context, index) {
+                //             var activeCast = _chrList[index];
+                //             return Row(
+                //               mainAxisAlignment: MainAxisAlignment.center,
+                //               children: [
+                //                 Container(
+                //                   padding: const EdgeInsets.symmetric(
+                //                       horizontal: 10),
+                //                   child: Column(
+                //                     children: [
+                //                       CircleAvatar(
+                //                         backgroundImage: activeCast
+                //                                     .profilePath !=
+                //                                 null
+                //                             ? CachedNetworkImageProvider(
+                //                                 'https://image.tmdb.org/t/p/w500' +
+                //                                     activeCast.profilePath
+                //                                         .toString(),
+                //                               )
+                //                             : const CachedNetworkImageProvider(
+                //                                 'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
+                //                         radius: 50,
+                //                       ),
+                //                       Text(
+                //                         activeCast.name.toString(),
+                //                         style: const TextStyle(
+                //                             color: Colors.white,
+                //                             fontWeight: FontWeight.bold,
+                //                             fontSize: 15),
+                //                       ),
+                //                     ],
+                //                   ),
+                //                 )
+                //               ],
+                //             );
+                //           },
+                //         );
+                //       } else {
+                //         return const CircularProgressIndicator();
+                //       }
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -345,69 +465,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     style: TextStyle(fontSize: 14, color: Constants.background),
                   ),
                 ),
-                Container(
-                  child: Text(
-                    'Cast',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 15, bottom: 15),
-                  width: 200,
-                  height: 150,
-                  color: Colors.black38,
-                  child: FutureBuilder<List<CharacterModel>>(
-                    future: _characterList,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<CharacterModel> _chrList = snapshot.data!;
-                        return ListView.builder(
-                          //padding: const EdgeInsets.symmetric(horizontal: 10),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 5,
-                          itemBuilder: (context, index) {
-                            var activeCast = _chrList[index];
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Column(
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundImage: activeCast
-                                                    .profilePath !=
-                                                null
-                                            ? CachedNetworkImageProvider(
-                                                'https://image.tmdb.org/t/p/w500' +
-                                                    activeCast.profilePath
-                                                        .toString(),
-                                              )
-                                            : const CachedNetworkImageProvider(
-                                                'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
-                                        radius: 50,
-                                      ),
-                                      Text(
-                                        activeCast.name.toString(),
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            );
-                          },
-                        );
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ),
-                )
               ],
             ),
           ),
