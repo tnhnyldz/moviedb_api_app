@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_api_app/screens/main_page.dart';
 import 'package:moviedb_api_app/services/character_api.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'constants/consts.dart';
 

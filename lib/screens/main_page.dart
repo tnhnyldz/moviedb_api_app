@@ -23,7 +23,7 @@ class _MainPageState extends State<MainPage> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Constants.background,
         selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.red[400],
+        unselectedItemColor: Colors.amber[400],
         selectedFontSize: 19,
         unselectedFontSize: 14,
         currentIndex: currentIndex,
@@ -35,19 +35,19 @@ class _MainPageState extends State<MainPage> {
                 Icons.home,
               ),
               label: 'Home',
-              backgroundColor: Colors.red),
+              backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.favorite,
               ),
               label: 'Favorite',
-              backgroundColor: Colors.red),
+              backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.people,
               ),
               label: 'Profile',
-              backgroundColor: Colors.red),
+              backgroundColor: Colors.amber),
         ],
       ),
       body: screens[currentIndex],

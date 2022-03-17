@@ -1,24 +1,25 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, must_be_immutable
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:moviedb_api_app/model/character_model.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
+import 'package:moviedb_api_app/model/trailer_player_model.dart';
+import 'package:moviedb_api_app/screens/Widgets/youtube_player.dart';
+import 'package:moviedb_api_app/services/character_api.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
+import 'package:moviedb_api_app/services/trailer_api.dart';
 
 import '../../constants/consts.dart';
-import '../Widgets/popularRow.dart';
-import 'package:moviedb_api_app/services/character_api.dart';
 
 class DetailsPage extends StatefulWidget {
   final MovieModel currentMovie;
   CharacterModel? currentCharacter;
 
-  DetailsPage(this.currentMovie);
+  DetailsPage(this.currentMovie, {Key? key}) : super(key: key);
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
@@ -26,11 +27,14 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   late Future<List<MovieModel>> _recList;
   late Future<List<CharacterModel>> _characterList;
+  late Future<List<PlayerTrailer>> _playerList;
+
   @override
   void initState() {
     super.initState();
     _recList = MovieApi.getRecommendations(widget.currentMovie.id!);
     _characterList = CharacterApi.getCharacter(widget.currentMovie.id!);
+    _playerList = TrailerApi.getTrailer(widget.currentMovie.id!);
   }
 
   @override
@@ -44,11 +48,7 @@ class _DetailsPageState extends State<DetailsPage> {
             expandedHeight: 510,
             floating: true,
             flexibleSpace: FlexibleSpaceBar(
-              // title: Text(
-              //   widget.title.toString(),
-              // ),
               background: Image.network(
-                // "https://source.unsplash.com/812jL3jmV1w",
                 "https://image.tmdb.org/t/p/w500" +
                     widget.currentMovie.posterPath.toString(),
                 scale: 1.0,
@@ -100,11 +100,11 @@ class _DetailsPageState extends State<DetailsPage> {
                   child: RateBarDetails(),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 15.0),
+                  margin: const EdgeInsets.only(left: 15.0),
                   child: Text(
-                    "Cast",
+                    "Trailer",
                     style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: Colors.white,
                         letterSpacing: .7,
                         fontSize: 38,
@@ -112,7 +112,38 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                FutureBuilder<List<PlayerTrailer>>(
+                    future: _playerList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<PlayerTrailer> _plyrList = snapshot.data!;
 
+                        return PlayerFragman(
+                            trailer: _plyrList.first,
+                            cuurentMovie: widget.currentMovie);
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    }),
+                const SizedBox(
+                  height: 13,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    "Cast",
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        letterSpacing: .7,
+                        fontSize: 38,
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   width: 200,
@@ -124,9 +155,8 @@ class _DetailsPageState extends State<DetailsPage> {
                       if (snapshot.hasData) {
                         List<CharacterModel> _chrList = snapshot.data!;
                         return ListView.builder(
-                          //padding: const EdgeInsets.symmetric(horizontal: 10),
                           scrollDirection: Axis.horizontal,
-                          itemCount: 5,
+                          itemCount: 10,
                           itemBuilder: (context, index) {
                             var activeCast = _chrList[index];
                             return Row(
@@ -171,11 +201,11 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 15.0),
+                  margin: const EdgeInsets.only(left: 15.0),
                   child: Text(
                     "Recommended",
                     style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: Colors.white,
                         letterSpacing: .7,
                         fontSize: 38,
@@ -193,7 +223,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         List<MovieModel> _listem = snapshot.data!;
 
                         return ListView.builder(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             var currentFilm = _listem[index];
@@ -203,7 +233,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         );
                       } else if (snapshot.hasError) {
                         return const Center(
-                          child: Text("dasta yok"),
+                          child: Text("Data Yok"),
                         );
                       } else {
                         return const Center(
@@ -213,63 +243,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     },
                   ),
                 ),
-                // Container(
-                //   padding: const EdgeInsets.only(top: 15, bottom: 15),
-                //   width: 200,
-                //   height: 150,
-                //   color: Colors.black38,
-                //   child: FutureBuilder<List<CharacterModel>>(
-                //     future: _characterList,
-                //     builder: (context, snapshot) {
-                //       if (snapshot.hasData) {
-                //         List<CharacterModel> _chrList = snapshot.data!;
-                //         return ListView.builder(
-                //           //padding: const EdgeInsets.symmetric(horizontal: 10),
-                //           scrollDirection: Axis.horizontal,
-                //           itemCount: 5,
-                //           itemBuilder: (context, index) {
-                //             var activeCast = _chrList[index];
-                //             return Row(
-                //               mainAxisAlignment: MainAxisAlignment.center,
-                //               children: [
-                //                 Container(
-                //                   padding: const EdgeInsets.symmetric(
-                //                       horizontal: 10),
-                //                   child: Column(
-                //                     children: [
-                //                       CircleAvatar(
-                //                         backgroundImage: activeCast
-                //                                     .profilePath !=
-                //                                 null
-                //                             ? CachedNetworkImageProvider(
-                //                                 'https://image.tmdb.org/t/p/w500' +
-                //                                     activeCast.profilePath
-                //                                         .toString(),
-                //                               )
-                //                             : const CachedNetworkImageProvider(
-                //                                 'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
-                //                         radius: 50,
-                //                       ),
-                //                       Text(
-                //                         activeCast.name.toString(),
-                //                         style: const TextStyle(
-                //                             color: Colors.white,
-                //                             fontWeight: FontWeight.bold,
-                //                             fontSize: 15),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             );
-                //           },
-                //         );
-                //       } else {
-                //         return const CircularProgressIndicator();
-                //       }
-                //     },
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -283,7 +256,7 @@ class _DetailsPageState extends State<DetailsPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
-          padding: EdgeInsets.all(6.0),
+          padding: const EdgeInsets.all(6.0),
           height: 100,
           color: Colors.black,
           child: Column(
@@ -311,7 +284,7 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
         Container(
-            padding: EdgeInsets.all(6.0),
+            padding: const EdgeInsets.all(6.0),
             height: 100,
             color: Colors.black,
             child: Column(
@@ -322,7 +295,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   size: 40.0,
                 ),
                 const Text(
-                  "language:",
+                  "Language :",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -340,7 +313,7 @@ class _DetailsPageState extends State<DetailsPage> {
         Container(
           height: 100,
           color: Colors.black,
-          padding: EdgeInsets.all(6.0),
+          padding: const EdgeInsets.all(6.0),
           child: Column(
             children: [
               const Icon(
@@ -349,7 +322,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 size: 40.0,
               ),
               const Text(
-                "Year",
+                "Year :",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -385,24 +358,34 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             height: 292,
             // color: Constants.background2,
-            margin: EdgeInsets.all(4.0),
-            padding: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  // color: Colors.red,
-                  width: 150,
-                  height: 120,
-                  child: Image.network(
-                    "https://image.tmdb.org/t/p/w500" +
-                        currentFilm.backdropPath.toString(),
-                    fit: BoxFit.cover,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (detailsContext) => DetailsPage(currentFilm),
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    // color: Colors.red,
+                    width: 150,
+                    height: 220,
+                    child: Image.network(
+                      "https://image.tmdb.org/t/p/w500" +
+                          currentFilm.backdropPath.toString(),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Text(
                   currentFilm.title.toString(),
-                  style: TextStyle(fontSize: 12, color: Colors.white),
+                  style: const TextStyle(fontSize: 12, color: Colors.white),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -423,47 +406,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         color: Colors.amber,
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    //Icon(Icons.star_border_outlined),
-                    Text(
-                      "Yayın Yılı: " +
-                          DateFormat.y().format(
-                            DateTime.parse(
-                              currentFilm.releaseDate.toString(),
-                            ),
-                          ),
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                    Text(
-                      "Popülerlik: " + currentFilm.popularity.toString(),
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                    Text(
-                      "Puan: " +
-                          (currentFilm.voteAverage!.toDouble() / 2)
-                              .toStringAsFixed(1),
-                      style: TextStyle(fontSize: 12, color: Colors.white),
-                    ),
                   ],
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      backgroundColor: Colors.amber),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (detailsContext) => DetailsPage(currentFilm),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    'Details',
-                    style: TextStyle(fontSize: 14, color: Constants.background),
-                  ),
                 ),
               ],
             ),
