@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moviedb_api_app/constants/consts.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/screens/Widgets/popularRow.dart';
 import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
 import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:skeletons/skeletons.dart';
+
+import '../Widgets/custom_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -50,6 +51,7 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 50, child: const CustomAppBar()),
                     Container(
                       padding: const EdgeInsets.all(4.0),
                       alignment: Alignment.centerLeft,
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         'Top Rated',
                         style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             color: Colors.white,
                             letterSpacing: .7,
                             fontSize: 42,
