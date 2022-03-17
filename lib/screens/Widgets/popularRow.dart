@@ -81,54 +81,14 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                         ignoreGestures: true,
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
-                          color: Colors.red,
+                          color: Colors.amber,
                         ),
                       ),
                       const SizedBox(
                         height: 10,
-                      ),
-                      //Icon(Icons.star_border_outlined),
-                      // Text(
-                      //   "Yayın Yılı: " +
-                      //       DateFormat.y().format(
-                      //         DateTime.parse(
-                      //           currentMovie.releaseDate.toString(),
-                      //         ),
-                      //       ),
-                      //   style:
-                      //       const TextStyle(fontSize: 12, color: Colors.white),
-                      // ),
-                      //Text(
-                      //"Popülerlik: " + currentMovie.popularity.toString(),
-                      //style: TextStyle(fontSize: 12, color: Colors.white),
-                      //),
-                      //Text(
-                      //"Puan: " +
-                      //  (currentMovie.voteAverage!.toDouble() / 2)
-                      //    .toStringAsFixed(1),
-                      //style: TextStyle(fontSize: 12, color: Colors.white),
-                      // ),
+                      ),              
                     ],
                   ),
-                  // TextButton(
-                  //   style: TextButton.styleFrom(
-                  //       textStyle: const TextStyle(fontSize: 20),
-                  //       backgroundColor: Colors.red),
-                  //   onPressed: () {
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (detailsContext) =>
-                  //             DetailsPage(currentMovie),
-                  //       ),
-                  //     );
-                  //   },
-                  //   child: Text(
-                  //     'Details',
-                  //     style:
-                  //         TextStyle(fontSize: 14, color: Constants.background),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

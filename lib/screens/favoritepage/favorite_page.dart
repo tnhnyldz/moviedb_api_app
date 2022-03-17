@@ -11,14 +11,15 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.red,
-        child: Center(
-          child: Text(
-            'Favorite Page',
-            style: TextStyle(
-              backgroundColor: Colors.white,
-            ),
+      color: Colors.amber,
+      child: const Center(
+        child: Text(
+          'Favorite Page',
+          style: TextStyle(
+            backgroundColor: Colors.white,
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

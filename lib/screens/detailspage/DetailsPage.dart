@@ -112,7 +112,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                   ),
                 ),
-
                 Container(
                   padding: const EdgeInsets.only(top: 15, bottom: 15),
                   width: 200,
@@ -138,6 +137,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   child: Column(
                                     children: [
                                       CircleAvatar(
+                                        backgroundColor: Colors.white,
                                         backgroundImage: activeCast
                                                     .profilePath !=
                                                 null
@@ -147,7 +147,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                                         .toString(),
                                               )
                                             : const CachedNetworkImageProvider(
-                                                'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
+                                                'http://cdn.onlinewebfonts.com/svg/img_568656.png'),
                                         radius: 50,
                                       ),
                                       Text(
@@ -175,7 +175,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   child: Text(
                     "Recommended",
                     style: GoogleFonts.roboto(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: Colors.white,
                         letterSpacing: .7,
                         fontSize: 38,
@@ -213,63 +213,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     },
                   ),
                 ),
-                // Container(
-                //   padding: const EdgeInsets.only(top: 15, bottom: 15),
-                //   width: 200,
-                //   height: 150,
-                //   color: Colors.black38,
-                //   child: FutureBuilder<List<CharacterModel>>(
-                //     future: _characterList,
-                //     builder: (context, snapshot) {
-                //       if (snapshot.hasData) {
-                //         List<CharacterModel> _chrList = snapshot.data!;
-                //         return ListView.builder(
-                //           //padding: const EdgeInsets.symmetric(horizontal: 10),
-                //           scrollDirection: Axis.horizontal,
-                //           itemCount: 5,
-                //           itemBuilder: (context, index) {
-                //             var activeCast = _chrList[index];
-                //             return Row(
-                //               mainAxisAlignment: MainAxisAlignment.center,
-                //               children: [
-                //                 Container(
-                //                   padding: const EdgeInsets.symmetric(
-                //                       horizontal: 10),
-                //                   child: Column(
-                //                     children: [
-                //                       CircleAvatar(
-                //                         backgroundImage: activeCast
-                //                                     .profilePath !=
-                //                                 null
-                //                             ? CachedNetworkImageProvider(
-                //                                 'https://image.tmdb.org/t/p/w500' +
-                //                                     activeCast.profilePath
-                //                                         .toString(),
-                //                               )
-                //                             : const CachedNetworkImageProvider(
-                //                                 'https://www.seekpng.com/png/detail/297-2978586_rono-daniel-empty-profile-picture-icon.png'),
-                //                         radius: 50,
-                //                       ),
-                //                       Text(
-                //                         activeCast.name.toString(),
-                //                         style: const TextStyle(
-                //                             color: Colors.white,
-                //                             fontWeight: FontWeight.bold,
-                //                             fontSize: 15),
-                //                       ),
-                //                     ],
-                //                   ),
-                //                 )
-                //               ],
-                //             );
-                //           },
-                //         );
-                //       } else {
-                //         return const CircularProgressIndicator();
-                //       }
-                //     },
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -385,8 +328,8 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
             height: 292,
             // color: Constants.background2,
-            margin: EdgeInsets.all(4.0),
-            padding: EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -402,7 +345,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
                 Text(
                   currentFilm.title.toString(),
-                  style: TextStyle(fontSize: 12, color: Colors.white),
+                  style: const TextStyle(fontSize: 12, color: Colors.white),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -434,17 +377,17 @@ class _DetailsPageState extends State<DetailsPage> {
                               currentFilm.releaseDate.toString(),
                             ),
                           ),
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
                     Text(
                       "Popülerlik: " + currentFilm.popularity.toString(),
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
                     Text(
                       "Puan: " +
                           (currentFilm.voteAverage!.toDouble() / 2)
                               .toStringAsFixed(1),
-                      style: TextStyle(fontSize: 12, color: Colors.white),
+                      style: const TextStyle(fontSize: 12, color: Colors.white),
                     ),
                   ],
                 ),

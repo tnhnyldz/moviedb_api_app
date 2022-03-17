@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviedb_api_app/constants/consts.dart';
@@ -7,6 +8,7 @@ import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
 import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -53,6 +55,72 @@ class _HomePageState extends State<HomePage> {
                     Container(
                       padding: const EdgeInsets.all(4.0),
                       alignment: Alignment.centerLeft,
+                      child: Text('Upcoming',
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              letterSpacing: .7,
+                              fontSize: 40,
+                            ),
+                          )),
+                    ),
+                    // Slider Container
+                    Container(
+                      height: 250,
+                      color: Colors.black,
+                      child: CarouselSlider.builder(
+                        itemCount: 20,
+                        itemBuilder:
+                            (BuildContext context, int index, realindex) {
+                          MovieModel currentMovie5 = _filmListUpcoming[index];
+
+                          return Stack(
+                            alignment: Alignment.bottomLeft,
+                            children: <Widget>[
+                              ClipRRect(
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  width: MediaQuery.of(context).size.width,
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(15),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 15, left: 15),
+                                child: Text(
+                                  currentMovie5.title.toString().toUpperCase(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      fontFamily: 'roboto'),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                        options: CarouselOptions(
+                          enableInfiniteScroll: true,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 2),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 500),
+                          pauseAutoPlayOnTouch: true,
+                          viewportFraction: 0.8,
+                          enlargeCenterPage: true,
+                        ),
+                      ),
+                    ),
+                    // popular title
+                    Container(
+                      padding: const EdgeInsets.all(4.0),
+                      alignment: Alignment.centerLeft,
                       child: Text('Popular',
                           style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
@@ -62,6 +130,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )),
                     ),
+                    // popular row
                     SizedBox(
                       height: 300,
                       child: Scrollbar(
@@ -77,13 +146,14 @@ class _HomePageState extends State<HomePage> {
                             })),
                       ),
                     ),
+                    // top rated title
                     Container(
                       padding: const EdgeInsets.all(4.0),
                       alignment: Alignment.centerLeft,
                       child: Text(
                         'Top Rated',
                         style: GoogleFonts.roboto(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             color: Colors.white,
                             letterSpacing: .7,
                             fontSize: 42,
@@ -91,49 +161,52 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
+                    // Toprated row
                     Scrollbar(
-                      showTrackOnHover: true,
-                      child: SizedBox(
-                        height: 300,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _filmListTopRated.length,
-                            itemBuilder: ((context, index) {
-                              MovieModel currentModel2 =
-                                  _filmListTopRated[index];
-                              return HorizontalWidget(
-                                  currentMovie: currentModel2);
-                            })),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(4.0),
-                      alignment: Alignment.centerLeft,
-                      child: Text('Upcoming',
-                          style: GoogleFonts.roboto(
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              letterSpacing: .7,
-                              fontSize: 42,
-                            ),
-                          )),
-                    ),
-                    Scrollbar(
-                      // trackVisibility: true,
                       showTrackOnHover: true,
                       child: SizedBox(
                         height: 300,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: _filmListFuture.length,
+                          itemCount: _filmListTopRated.length,
                           itemBuilder: ((context, index) {
-                            MovieModel currentModel3 = _filmListTopRated[index];
+                            MovieModel currentModel2 = _filmListTopRated[index];
                             return HorizontalWidget(
-                                currentMovie: currentModel3);
+                                currentMovie: currentModel2);
                           }),
                         ),
                       ),
                     ),
+                    // Upcoming Title
+                    // Container(
+                    //   padding: const EdgeInsets.all(4.0),
+                    //   alignment: Alignment.centerLeft,
+                    //   child: Text('Upcoming',
+                    //       style: GoogleFonts.roboto(
+                    //         textStyle: const TextStyle(
+                    //           color: Colors.white,
+                    //           letterSpacing: .7,
+                    //           fontSize: 42,
+                    //         ),
+                    //       )),
+                    // ),
+                    // Upcoming Row
+                    // Scrollbar(
+                    //   // trackVisibility: true,
+                    //   showTrackOnHover: true,
+                    //   child: SizedBox(
+                    //     height: 300,
+                    //     child: ListView.builder(
+                    //       scrollDirection: Axis.horizontal,
+                    //       itemCount: _filmListFuture.length,
+                    //       itemBuilder: ((context, index) {
+                    //         MovieModel currentModel3 = _filmListUpcoming[index];
+                    //         return HorizontalWidget(
+                    //             currentMovie: currentModel3);
+                    //       }),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
