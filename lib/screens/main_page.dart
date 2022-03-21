@@ -3,11 +3,10 @@ import 'package:moviedb_api_app/constants/consts.dart';
 import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
 import 'package:moviedb_api_app/screens/homepage/HomePage.dart';
 import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
-import 'package:moviedb_api_app/services/moviedb_api.dart';
-import 'package:moviedb_api_app/services/character_api.dart';
+import 'package:moviedb_api_app/screens/searchpage/search_page.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -15,7 +14,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  var screens = [HomePage(), ProfilePage(), FavoritePage()];
+  var screens = [
+    const HomePage(),
+    FavoritePage(),
+    const SearchPage(),
+    ProfilePage()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,6 +45,10 @@ class _MainPageState extends State<MainPage> {
                 Icons.favorite,
               ),
               label: 'Favorite',
+              backgroundColor: Colors.amber),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'Search',
               backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
