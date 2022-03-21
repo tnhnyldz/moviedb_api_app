@@ -38,13 +38,13 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
           children: [
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
                 color: Constants.background2,
               ),
               height: 292,
               // color: Constants.background2,
               margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.all(8.0),
+              // padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -52,18 +52,27 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                     // color: Colors.red,
                     width: 150,
                     height: 200,
-                    child: Image.network(
-                      "https://image.tmdb.org/t/p/w500" +
-                          currentMovie.backdropPath.toString(),
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                      child: Image.network(
+                        "https://image.tmdb.org/t/p/w500" +
+                            currentMovie.backdropPath.toString(),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                  Text(
-                    currentMovie.title.toString(),
-                    style: const TextStyle(
-                        fontSize: 13,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      currentMovie.title.toString(),
+                      style: const TextStyle(
+                          fontSize: 13,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +95,7 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                       ),
                       const SizedBox(
                         height: 10,
-                      ),              
+                      ),
                     ],
                   ),
                 ],

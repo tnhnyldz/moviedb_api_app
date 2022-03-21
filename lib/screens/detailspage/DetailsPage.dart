@@ -46,7 +46,7 @@ class _DetailsPageState extends State<DetailsPage> {
           SliverAppBar(
             backgroundColor: Colors.black,
             expandedHeight: 510,
-            floating: true,
+            // floating: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Image.network(
                 "https://image.tmdb.org/t/p/w500" +
@@ -354,13 +354,13 @@ class _DetailsPageState extends State<DetailsPage> {
         children: [
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(15),
               color: Constants.background2,
             ),
             height: 292,
             // color: Constants.background2,
             margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.all(8.0),
+            // padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -375,18 +375,27 @@ class _DetailsPageState extends State<DetailsPage> {
                   },
                   child: SizedBox(
                     // color: Colors.red,
-                    width: 150,
+                    // width: 150,
                     height: 220,
-                    child: Image.network(
-                      "https://image.tmdb.org/t/p/w500" +
-                          currentFilm.backdropPath.toString(),
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                      child: Image.network(
+                        "https://image.tmdb.org/t/p/w500" +
+                            currentFilm.backdropPath.toString(),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
-                Text(
-                  currentFilm.title.toString(),
-                  style: const TextStyle(fontSize: 12, color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Text(
+                    currentFilm.title.toString(),
+                    style: const TextStyle(fontSize: 12, color: Colors.white),
+                  ),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -411,25 +420,25 @@ class _DetailsPageState extends State<DetailsPage> {
                       height: 10,
                     ),
                     //Icon(Icons.star_border_outlined),
-                    Text(
-                      "Yayın Yılı: " +
-                          DateFormat.y().format(
-                            DateTime.parse(
-                              currentFilm.releaseDate.toString(),
-                            ),
-                          ),
-                      style: const TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                    Text(
-                      "Popülerlik: " + currentFilm.popularity.toString(),
-                      style: const TextStyle(fontSize: 12, color: Colors.white),
-                    ),
-                    Text(
-                      "Puan: " +
-                          (currentFilm.voteAverage!.toDouble() / 2)
-                              .toStringAsFixed(1),
-                      style: const TextStyle(fontSize: 12, color: Colors.white),
-                    ),
+                    // Text(
+                    //   "Yayın Yılı: " +
+                    //       DateFormat.y().format(
+                    //         DateTime.parse(
+                    //           currentFilm.releaseDate.toString(),
+                    //         ),
+                    //       ),
+                    //   style: const TextStyle(fontSize: 12, color: Colors.white),
+                    // ),
+                    // Text(
+                    //   "Popülerlik: " + currentFilm.popularity.toString(),
+                    //   style: const TextStyle(fontSize: 12, color: Colors.white),
+                    // ),
+                    // Text(
+                    //   "Puan: " +
+                    //       (currentFilm.voteAverage!.toDouble() / 2)
+                    //           .toStringAsFixed(1),
+                    //   style: const TextStyle(fontSize: 12, color: Colors.white),
+                    // ),
                   ],
                 ),
               ],
