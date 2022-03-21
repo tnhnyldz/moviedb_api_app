@@ -49,143 +49,150 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: state
-          ? SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    // upcomıng tıtle
-                    Container(
-                      padding: const EdgeInsets.all(4.0),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Upcoming',
-                        style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                            letterSpacing: .7,
-                            fontSize: 40,
+          ? ListView(children: [
+              CustomAppBar(),
+              SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // upcomıng tıtle
+                      Container(
+                        padding: const EdgeInsets.all(4.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Upcoming',
+                          style: GoogleFonts.roboto(
+                            textStyle: const TextStyle(
+                              color: Colors.white,
+                              letterSpacing: .7,
+                              fontSize: 40,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    // Slider Container
-                    Container(
-                      height: 250,
-                      color: Colors.black,
-                      child: CarouselSlider.builder(
-                        itemCount: 20,
-                        itemBuilder:
-                            (BuildContext context, int index, realindex) {
-                          MovieModel currentMovie5 = _filmListUpcoming[index];
+                      // Slider Container
+                      Container(
+                        height: 250,
+                        color: Colors.black,
+                        child: CarouselSlider.builder(
+                          itemCount: 20,
+                          itemBuilder:
+                              (BuildContext context, int index, realindex) {
+                            MovieModel currentMovie5 = _filmListUpcoming[index];
 
-                          return Stack(
-                            alignment: Alignment.bottomLeft,
-                            children: <Widget>[
-                              ClipRRect(
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
-                                  height:
-                                      MediaQuery.of(context).size.height / 3,
-                                  width: MediaQuery.of(context).size.width,
-                                  fit: BoxFit.cover,
+                            return Stack(
+                              alignment: Alignment.bottomLeft,
+                              children: <Widget>[
+                                ClipRRect(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
+                                    height:
+                                        MediaQuery.of(context).size.height / 3,
+                                    width: MediaQuery.of(context).size.width,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(15),
+                                  ),
                                 ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(15),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      bottom: 15, left: 15),
+                                  child: Text(
+                                    currentMovie5.title
+                                        .toString()
+                                        .toUpperCase(),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        fontFamily: 'roboto'),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 15, left: 15),
-                                child: Text(
-                                  currentMovie5.title.toString().toUpperCase(),
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      fontFamily: 'roboto'),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                        options: CarouselOptions(
-                          enableInfiniteScroll: true,
-                          autoPlay: true,
-                          autoPlayInterval: const Duration(seconds: 4),
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 1000),
-                          pauseAutoPlayOnTouch: true,
-                          viewportFraction: 0.8,
-                          enlargeCenterPage: true,
+                              ],
+                            );
+                          },
+                          options: CarouselOptions(
+                            enableInfiniteScroll: true,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 4),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 1000),
+                            pauseAutoPlayOnTouch: true,
+                            viewportFraction: 0.8,
+                            enlargeCenterPage: true,
+                          ),
                         ),
                       ),
-                    ),
-                    // popular title
-                    Container(
-                      padding: const EdgeInsets.all(4.0),
-                      alignment: Alignment.centerLeft,
-                      child: Text('Popular',
+                      // popular title
+                      Container(
+                        padding: const EdgeInsets.all(4.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text('Popular',
+                            style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(
+                                color: Colors.white,
+                                letterSpacing: .7,
+                                fontSize: 42,
+                              ),
+                            )),
+                      ),
+                      // popular row
+                      SizedBox(
+                        height: 300,
+                        child: Scrollbar(
+                          showTrackOnHover: true,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _filmListFuture.length,
+                              itemBuilder: ((context, index) {
+                                MovieModel currentMovie =
+                                    _filmListFuture[index];
+
+                                return HorizontalWidget(
+                                    currentMovie: currentMovie);
+                              })),
+                        ),
+                      ),
+                      // top rated title
+                      Container(
+                        padding: const EdgeInsets.all(4.0),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Top Rated',
                           style: GoogleFonts.roboto(
                             textStyle: const TextStyle(
                               color: Colors.white,
                               letterSpacing: .7,
                               fontSize: 42,
                             ),
-                          )),
-                    ),
-                    // popular row
-                    SizedBox(
-                      height: 300,
-                      child: Scrollbar(
-                        showTrackOnHover: true,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: _filmListFuture.length,
-                            itemBuilder: ((context, index) {
-                              MovieModel currentMovie = _filmListFuture[index];
-
-                              return HorizontalWidget(
-                                  currentMovie: currentMovie);
-                            })),
-                      ),
-                    ),
-                    // top rated title
-                    Container(
-                      padding: const EdgeInsets.all(4.0),
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Top Rated',
-                        style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                            letterSpacing: .7,
-                            fontSize: 42,
                           ),
                         ),
                       ),
-                    ),
-                    // Toprated row
-                    Scrollbar(
-                      showTrackOnHover: true,
-                      child: SizedBox(
-                        height: 300,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _filmListTopRated.length,
-                          itemBuilder: ((context, index) {
-                            MovieModel currentModel2 = _filmListTopRated[index];
-                            return HorizontalWidget(
-                                currentMovie: currentModel2);
-                          }),
+                      // Toprated row
+                      Scrollbar(
+                        showTrackOnHover: true,
+                        child: SizedBox(
+                          height: 300,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: _filmListTopRated.length,
+                            itemBuilder: ((context, index) {
+                              MovieModel currentModel2 =
+                                  _filmListTopRated[index];
+                              return HorizontalWidget(
+                                  currentMovie: currentModel2);
+                            }),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            )
+            ])
           : const Center(
               child: CircularProgressIndicator(
                 color: Colors.grey,
