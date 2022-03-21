@@ -52,17 +52,20 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    // upcomıng tıtle
                     Container(
                       padding: const EdgeInsets.all(4.0),
                       alignment: Alignment.centerLeft,
-                      child: Text('Upcoming',
-                          style: GoogleFonts.roboto(
-                            textStyle: const TextStyle(
-                              color: Colors.white,
-                              letterSpacing: .7,
-                              fontSize: 40,
-                            ),
-                          )),
+                      child: Text(
+                        'Upcoming',
+                        style: GoogleFonts.roboto(
+                          textStyle: const TextStyle(
+                            color: Colors.white,
+                            letterSpacing: .7,
+                            fontSize: 40,
+                          ),
+                        ),
+                      ),
                     ),
                     // Slider Container
                     Container(
@@ -86,31 +89,32 @@ class _HomePageState extends State<HomePage> {
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.cover,
                                 ),
-                                borderRadius: BorderRadius.all(
+                                borderRadius: const BorderRadius.all(
                                   Radius.circular(15),
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(bottom: 15, left: 15),
+                                padding:
+                                    const EdgeInsets.only(bottom: 15, left: 15),
                                 child: Text(
                                   currentMovie5.title.toString().toUpperCase(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                       fontFamily: 'roboto'),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              )
+                              ),
                             ],
                           );
                         },
                         options: CarouselOptions(
                           enableInfiniteScroll: true,
                           autoPlay: true,
-                          autoPlayInterval: Duration(seconds: 2),
+                          autoPlayInterval: const Duration(seconds: 4),
                           autoPlayAnimationDuration:
-                              Duration(milliseconds: 500),
+                              const Duration(milliseconds: 1000),
                           pauseAutoPlayOnTouch: true,
                           viewportFraction: 0.8,
                           enlargeCenterPage: true,
@@ -177,164 +181,138 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                     ),
-                    // Upcoming Title
-                    // Container(
-                    //   padding: const EdgeInsets.all(4.0),
-                    //   alignment: Alignment.centerLeft,
-                    //   child: Text('Upcoming',
-                    //       style: GoogleFonts.roboto(
-                    //         textStyle: const TextStyle(
-                    //           color: Colors.white,
-                    //           letterSpacing: .7,
-                    //           fontSize: 42,
-                    //         ),
-                    //       )),
-                    // ),
-                    // Upcoming Row
-                    // Scrollbar(
-                    //   // trackVisibility: true,
-                    //   showTrackOnHover: true,
-                    //   child: SizedBox(
-                    //     height: 300,
-                    //     child: ListView.builder(
-                    //       scrollDirection: Axis.horizontal,
-                    //       itemCount: _filmListFuture.length,
-                    //       itemBuilder: ((context, index) {
-                    //         MovieModel currentModel3 = _filmListUpcoming[index];
-                    //         return HorizontalWidget(
-                    //             currentMovie: currentModel3);
-                    //       }),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
             )
-          : Center(
-              child: Skeleton(
-                shimmerGradient: const LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 67, 72, 75),
-                    Color.fromARGB(255, 173, 178, 181),
-                    Color.fromARGB(255, 67, 72, 75),
-                  ],
-                  stops: [
-                    0.1,
-                    0.5,
-                    0.9,
-                  ],
-                ),
-                isLoading: _isLoading,
-                skeleton: SkeletonItem(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    margin: const EdgeInsets.fromLTRB(0, 35, 0, 0),
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: SkeletonAvatar(
-                            style: SkeletonAvatarStyle(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
-                                borderRadius: BorderRadius.circular(35),
-                                shape: BoxShape.rectangle,
-                                width: 180,
-                                height: 50),
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            SkeletonAvatar(
-                              style: SkeletonAvatarStyle(
-                                  borderRadius: BorderRadius.circular(35),
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                  shape: BoxShape.rectangle,
-                                  width: 160,
-                                  height: 320),
-                            ),
-                            SkeletonAvatar(
-                              style: SkeletonAvatarStyle(
-                                  borderRadius: BorderRadius.circular(35),
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                  shape: BoxShape.rectangle,
-                                  width: 160,
-                                  height: 320),
-                            ),
-                            const Expanded(
-                              child: SkeletonAvatar(
-                                style: SkeletonAvatarStyle(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(35),
-                                      bottomLeft: Radius.circular(35)),
-                                  padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                  shape: BoxShape.rectangle,
-                                  // width: 60,
-                                  height: 320,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: SkeletonAvatar(
-                            style: SkeletonAvatarStyle(
-                                borderRadius: BorderRadius.circular(35),
-                                padding: const EdgeInsets.fromLTRB(0, 7, 0, 7),
-                                shape: BoxShape.rectangle,
-                                width: 180,
-                                height: 50),
-                          ),
-                        ),
-                        Expanded(
-                          child: Row(
-                            children: const [
-                              SkeletonAvatar(
-                                style: SkeletonAvatarStyle(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(35),
-                                        topRight: Radius.circular(35)),
-                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                    shape: BoxShape.rectangle,
-                                    width: 160,
-                                    height: 500),
-                              ),
-                              SkeletonAvatar(
-                                style: SkeletonAvatarStyle(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(35),
-                                        topRight: Radius.circular(35)),
-                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                    shape: BoxShape.rectangle,
-                                    width: 160,
-                                    height: 500),
-                              ),
-                              Expanded(
-                                child: SkeletonAvatar(
-                                  style: SkeletonAvatarStyle(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(35),
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
-                                    shape: BoxShape.rectangle,
-                                    // width: 60,
-                                    height: 500,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                child: const HomePage(),
+          : const Center(
+              child: CircularProgressIndicator(
+                color: Colors.grey,
+                semanticsLabel: 'Linear progress indicator',
               ),
+              // child: Skeleton(
+              //   shimmerGradient: const LinearGradient(
+              //     colors: [
+              //       Color.fromARGB(255, 67, 72, 75),
+              //       Color.fromARGB(255, 173, 178, 181),
+              //       Color.fromARGB(255, 67, 72, 75),
+              //     ],
+              //     stops: [
+              //       0.1,
+              //       0.5,
+              //       0.9,
+              //     ],
+              //   ),
+              //   isLoading: _isLoading,
+              //   skeleton: SkeletonItem(
+              //     child: Container(
+              //       alignment: Alignment.centerLeft,
+              //       margin: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+              //       child: Column(
+              //         // mainAxisAlignment: MainAxisAlignment.start,
+              //         children: [
+              //           Container(
+              //             alignment: Alignment.centerLeft,
+              //             child: SkeletonAvatar(
+              //               style: SkeletonAvatarStyle(
+              //                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
+              //                   borderRadius: BorderRadius.circular(35),
+              //                   shape: BoxShape.rectangle,
+              //                   width: 180,
+              //                   height: 50),
+              //             ),
+              //           ),
+              //           Row(
+              //             children: [
+              //               SkeletonAvatar(
+              //                 style: SkeletonAvatarStyle(
+              //                     borderRadius: BorderRadius.circular(35),
+              //                     padding:
+              //                         const EdgeInsets.fromLTRB(0, 0, 7, 0),
+              //                     shape: BoxShape.rectangle,
+              //                     width: 160,
+              //                     height: 320),
+              //               ),
+              //               SkeletonAvatar(
+              //                 style: SkeletonAvatarStyle(
+              //                     borderRadius: BorderRadius.circular(35),
+              //                     padding:
+              //                         const EdgeInsets.fromLTRB(0, 0, 7, 0),
+              //                     shape: BoxShape.rectangle,
+              //                     width: 160,
+              //                     height: 320),
+              //               ),
+              //               const Expanded(
+              //                 child: SkeletonAvatar(
+              //                   style: SkeletonAvatarStyle(
+              //                     borderRadius: BorderRadius.only(
+              //                         topLeft: Radius.circular(35),
+              //                         bottomLeft: Radius.circular(35)),
+              //                     padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+              //                     shape: BoxShape.rectangle,
+              //                     // width: 60,
+              //                     height: 320,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           Container(
+              //             alignment: Alignment.centerLeft,
+              //             child: SkeletonAvatar(
+              //               style: SkeletonAvatarStyle(
+              //                   borderRadius: BorderRadius.circular(35),
+              //                   padding: const EdgeInsets.fromLTRB(0, 7, 0, 7),
+              //                   shape: BoxShape.rectangle,
+              //                   width: 180,
+              //                   height: 50),
+              //             ),
+              //           ),
+              //           Expanded(
+              //             child: Row(
+              //               children: const [
+              //                 SkeletonAvatar(
+              //                   style: SkeletonAvatarStyle(
+              //                       borderRadius: BorderRadius.only(
+              //                           topLeft: Radius.circular(35),
+              //                           topRight: Radius.circular(35)),
+              //                       padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+              //                       shape: BoxShape.rectangle,
+              //                       width: 160,
+              //                       height: 500),
+              //                 ),
+              //                 SkeletonAvatar(
+              //                   style: SkeletonAvatarStyle(
+              //                       borderRadius: BorderRadius.only(
+              //                           topLeft: Radius.circular(35),
+              //                           topRight: Radius.circular(35)),
+              //                       padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+              //                       shape: BoxShape.rectangle,
+              //                       width: 160,
+              //                       height: 500),
+              //                 ),
+              //                 Expanded(
+              //                   child: SkeletonAvatar(
+              //                     style: SkeletonAvatarStyle(
+              //                       borderRadius: BorderRadius.only(
+              //                         topLeft: Radius.circular(35),
+              //                       ),
+              //                       padding: EdgeInsets.fromLTRB(0, 0, 7, 0),
+              //                       shape: BoxShape.rectangle,
+              //                       // width: 60,
+              //                       height: 500,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //           )
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              //   child: const HomePage(),
+              // ),
             ),
     );
   }
