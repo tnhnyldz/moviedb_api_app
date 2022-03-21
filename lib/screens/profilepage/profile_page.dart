@@ -12,7 +12,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.amber,
-        child: Center(
+        child: const Center(
           child: Text(
             'Profile Page',
             style: TextStyle(
