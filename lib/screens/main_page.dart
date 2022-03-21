@@ -35,19 +35,19 @@ class _MainPageState extends State<MainPage> {
                 Icons.home,
               ),
               label: 'Home',
-              backgroundColor: Colors.red),
+              backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.favorite,
               ),
               label: 'Favorite',
-              backgroundColor: Colors.red),
+              backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.people,
               ),
               label: 'Profile',
-              backgroundColor: Colors.red),
+              backgroundColor: Colors.amber),
         ],
       ),
       body: screens[currentIndex],

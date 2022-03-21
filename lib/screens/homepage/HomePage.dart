@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moviedb_api_app/constants/consts.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/screens/Widgets/popularRow.dart';
 import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
@@ -9,6 +8,8 @@ import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
+import '../Widgets/custom_app_bar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
