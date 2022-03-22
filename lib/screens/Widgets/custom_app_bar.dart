@@ -9,6 +9,7 @@ class CustomAppBar extends StatelessWidget {
     return Row(
       children: [
         Container(
+          height: 50,
           width: MediaQuery.of(context).size.width,
           decoration: const BoxDecoration(
             image: DecorationImage(
