@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/screens/Widgets/custom_app_bar.dart';
 import 'package:moviedb_api_app/screens/detailspage/DetailsPage.dart';
@@ -68,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
                 List<MovieModel> _srcList = snapshot.data!;
                 ScrollController controller = ScrollController();
                 return ListView.builder(
-                  physics: const ClampingScrollPhysics(),
+                  // physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     var activeSearch = _srcList[index];
@@ -80,36 +80,141 @@ class _SearchPageState extends State<SearchPage> {
 
                       return Container();
                     }
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          Card(
-                            child: ListTile(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (detailsContext) =>
-                                          DetailsPage(activeSearch),
+                    return Column(
+                      children: [
+                        ListView.separated(
+                            padding: const EdgeInsets.all(20),
+                            primary: false,
+                            shrinkWrap: true,
+                            itemBuilder: (_, index) {
+                              return GestureDetector(
+                                onTap: () {},
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (detailsContext) =>
+                                            DetailsPage(
+                                          activeSearch,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    height: 120,
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: activeSearch.backdropPath !=
+                                                  null
+                                              ? Image.network(
+                                                  'https://image.tmdb.org/t/p/w200' +
+                                                      activeSearch.backdropPath
+                                                          .toString(),
+                                                  fit: BoxFit.contain,
+                                                )
+                                              : Image.asset('assets/movie.png'),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                            child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                    child: Text(
+                                                  activeSearch.title.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                )),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              activeSearch.overview.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                RatingBar.builder(
+                                                  onRatingUpdate: (rating) =>
+                                                      setState(() {
+                                                    activeSearch.voteAverage =
+                                                        rating;
+                                                  }),
+                                                  allowHalfRating: true,
+                                                  unratedColor:
+                                                      Colors.blueGrey.shade200,
+                                                  itemCount: 5,
+                                                  initialRating: (activeSearch
+                                                              .voteAverage!
+                                                              .toDouble() /
+                                                          2) -
+                                                      0.5,
+                                                  itemSize: 18,
+                                                  ignoreGestures: true,
+                                                  itemBuilder: (context, _) =>
+                                                      const Icon(
+                                                    Icons.star,
+                                                    color: Colors.amber,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              'Popularity : ' +
+                                                  activeSearch.popularity
+                                                      .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        ))
+                                      ],
                                     ),
-                                  );
-                                },
-                                leading: CircleAvatar(
-                                  backgroundImage: activeSearch.backdropPath !=
-                                          null
-                                      ? CachedNetworkImageProvider(
-                                          'https://image.tmdb.org/t/p/w500' +
-                                              activeSearch.backdropPath
-                                                  .toString(),
-                                        )
-                                      : const CachedNetworkImageProvider(
-                                          'http://cdn.onlinewebfonts.com/svg/img_568656.png'),
+                                  ),
                                 ),
-                                title: Text(activeSearch.title.toString())),
-                          ),
-                        ],
-                      ),
+                              );
+                            },
+                            physics: const NeverScrollableScrollPhysics(),
+                            separatorBuilder: (_, index) => const SizedBox(
+                                  height: 10,
+                                ),
+                            itemCount: 1)
+                      ],
                     );
                   },
                   itemCount: _srcList.length,

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
@@ -6,10 +7,9 @@ import 'package:moviedb_api_app/screens/Widgets/popularRow.dart';
 import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
 import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
-import 'package:skeletons/skeletons.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 import '../Widgets/custom_app_bar.dart';
+import '../detailspage/DetailsPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: state
           ? ListView(children: [
-              CustomAppBar(),
+              const CustomAppBar(),
               SafeArea(
                 child: SingleChildScrollView(
                   child: Column(
@@ -80,38 +80,50 @@ class _HomePageState extends State<HomePage> {
                               (BuildContext context, int index, realindex) {
                             MovieModel currentMovie5 = _filmListUpcoming[index];
 
-                            return Stack(
-                              alignment: Alignment.bottomLeft,
-                              children: <Widget>[
-                                ClipRRect(
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
-                                    height:
-                                        MediaQuery.of(context).size.height / 3,
-                                    width: MediaQuery.of(context).size.width,
-                                    fit: BoxFit.cover,
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (detailsContext) =>
+                                            DetailsPage(
+                                              currentMovie5,
+                                            )));
+                              },
+                              child: Stack(
+                                alignment: Alignment.bottomLeft,
+                                children: <Widget>[
+                                  ClipRRect(
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              3,
+                                      width: MediaQuery.of(context).size.width,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(15),
+                                    ),
                                   ),
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(15),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        bottom: 15, left: 15),
+                                    child: Text(
+                                      currentMovie5.title
+                                          .toString()
+                                          .toUpperCase(),
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                          fontFamily: 'roboto'),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 15, left: 15),
-                                  child: Text(
-                                    currentMovie5.title
-                                        .toString()
-                                        .toUpperCase(),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        fontFamily: 'roboto'),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             );
                           },
                           options: CarouselOptions(
