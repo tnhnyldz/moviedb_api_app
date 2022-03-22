@@ -10,15 +10,9 @@ class FavoritePage extends StatefulWidget {
 class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-      child: const Center(
-        child: Text(
-          'Favorite Page',
-          style: TextStyle(
-            backgroundColor: Colors.white,
-          ),
-        ),
+    return Scaffold(
+      body: Center(
+        child: Text("Favori Sayfası"),
       ),
     );
   }
