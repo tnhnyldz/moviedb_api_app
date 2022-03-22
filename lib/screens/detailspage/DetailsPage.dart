@@ -14,6 +14,7 @@ import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:moviedb_api_app/services/trailer_api.dart';
 
 import '../../constants/consts.dart';
+import '../../services/favorite_api.dart';
 
 class DetailsPage extends StatefulWidget {
   final MovieModel currentMovie;
@@ -28,6 +29,7 @@ class _DetailsPageState extends State<DetailsPage> {
   late Future<List<MovieModel>> _recList;
   late Future<List<CharacterModel>> _characterList;
   late Future<List<PlayerTrailer>> _playerList;
+  FavMovieApi FavMovie = FavMovieApi(); //sdasdasdasdasdasd
 
   @override
   void initState() {
@@ -339,6 +341,46 @@ class _DetailsPageState extends State<DetailsPage> {
                   color: Colors.white,
                   fontSize: 20,
                 ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          // height: 100,
+          color: Colors.black,
+          padding: const EdgeInsets.all(6.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Constants.background2),
+                ),
+                onPressed: () {
+                  FavMovieApi FavMovie = FavMovieApi();
+                  FavMovie.getFavFilm(widget.currentMovie.id!);
+                  FavMovieApi.favMovieIdList.add(widget.currentMovie.id!);
+                  debugPrint(FavMovieApi.favMovieIdList.toString());
+                },
+                child: const Icon(
+                  Icons.favorite,
+                  color: Colors.pink,
+                  size: 40.0,
+                ),
+              ),
+              const SizedBox(
+                height: 9,
+              ),
+              const Text(
+                "Favorite",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 12,
               ),
             ],
           ),
