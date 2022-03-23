@@ -82,13 +82,14 @@ class _HomePageState extends State<HomePage> {
 
                             return InkWell(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (detailsContext) =>
-                                            DetailsPage(
-                                              currentMovie5,
-                                            )));
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (detailsContext) => DetailsPage(
+                                //       currentMovie5,
+                                //     ),
+                                //   ),
+                                // );
                               },
                               child: Stack(
                                 alignment: Alignment.bottomLeft,
@@ -205,11 +206,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ])
-          : const Center(
-              child: CircularProgressIndicator(
-                color: Colors.grey,
-                semanticsLabel: 'Linear progress indicator',
-              ),
+          : Center(
+              // child: CircularProgressIndicator(
+              //   color: Colors.grey,
+              //   semanticsLabel: 'Linear progress indicator',
+              // ),
+              child: Image.asset('assets/renamed.gif'),
+
               // child: Skeleton(
               //   shimmerGradient: const LinearGradient(
               //     colors: [

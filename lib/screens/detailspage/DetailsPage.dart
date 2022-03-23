@@ -29,7 +29,9 @@ class _DetailsPageState extends State<DetailsPage> {
   late Future<List<MovieModel>> _recList;
   late Future<List<CharacterModel>> _characterList;
   late Future<List<PlayerTrailer>> _playerList;
-  FavMovieApi FavMovie = FavMovieApi(); //sdasdasdasdasdasd
+
+  late bool value = FavMovieApi.favList
+      .any((element) => element.id == widget.currentMovie.id);
 
   @override
   void initState() {
@@ -41,7 +43,6 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    CharacterApi.getCharacter(widget.currentMovie.id!);
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -287,6 +288,64 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
         Container(
+          // height: 100,
+          color: Colors.black,
+          padding: const EdgeInsets.all(6.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Constants.background2),
+                ),
+                onPressed: () {
+                  // FAVORİ SAYFASI İÇİN ÇALIŞAN KISIM
+                  setState(() {
+                    if (value) {
+                      const snackBar = SnackBar(
+                        content: Text(
+                          'Bu filmi zaten listenize eklediniz.',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    } else {
+                      FavMovieApi.getFavFilm(widget.currentMovie.id!);
+                      value = true;
+                    }
+                  });
+                  // FAVORİ SAYFASI İÇİN ÇALIŞAN KISIM
+                },
+                child: value == true
+                    ? const Icon(
+                        Icons.bookmark_added_outlined,
+                        color: Colors.greenAccent,
+                        size: 40.0,
+                      )
+                    : const Icon(
+                        Icons.bookmark_add_outlined,
+                        color: Colors.redAccent,
+                        size: 40.0,
+                      ),
+              ),
+              const SizedBox(
+                height: 9,
+              ),
+              const Text(
+                "Favorite",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+            ],
+          ),
+        ),
+        Container(
             padding: const EdgeInsets.all(6.0),
             height: 100,
             color: Colors.black,
@@ -341,46 +400,6 @@ class _DetailsPageState extends State<DetailsPage> {
                   color: Colors.white,
                   fontSize: 20,
                 ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          // height: 100,
-          color: Colors.black,
-          padding: const EdgeInsets.all(6.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Constants.background2),
-                ),
-                onPressed: () {
-                  FavMovieApi FavMovie = FavMovieApi();
-                  FavMovie.getFavFilm(widget.currentMovie.id!);
-                  FavMovieApi.favMovieIdList.add(widget.currentMovie.id!);
-                  debugPrint(FavMovieApi.favMovieIdList.toString());
-                },
-                child: const Icon(
-                  Icons.favorite,
-                  color: Colors.pink,
-                  size: 40.0,
-                ),
-              ),
-              const SizedBox(
-                height: 9,
-              ),
-              const Text(
-                "Favorite",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(
-                height: 12,
               ),
             ],
           ),
@@ -461,26 +480,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    //Icon(Icons.star_border_outlined),
-                    // Text(
-                    //   "Yayın Yılı: " +
-                    //       DateFormat.y().format(
-                    //         DateTime.parse(
-                    //           currentFilm.releaseDate.toString(),
-                    //         ),
-                    //       ),
-                    //   style: const TextStyle(fontSize: 12, color: Colors.white),
-                    // ),
-                    // Text(
-                    //   "Popülerlik: " + currentFilm.popularity.toString(),
-                    //   style: const TextStyle(fontSize: 12, color: Colors.white),
-                    // ),
-                    // Text(
-                    //   "Puan: " +
-                    //       (currentFilm.voteAverage!.toDouble() / 2)
-                    //           .toStringAsFixed(1),
-                    //   style: const TextStyle(fontSize: 12, color: Colors.white),
-                    // ),
                   ],
                 ),
               ],
