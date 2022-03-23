@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
               backgroundColor: Colors.amber),
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.favorite,
+                Icons.bookmark_add_outlined,
               ),
               label: 'Favorite',
               backgroundColor: Colors.amber),

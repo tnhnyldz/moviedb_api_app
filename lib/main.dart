@@ -21,12 +21,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    // CharacterApi.getCharacter(819);
-    // MovieApi.getFilms();
-    // FavMovieApi.getFavFilm(6);
-
-    // CharacterApi.getCharacter(819);s
-    // SearchApi.getSearchedFilms('Babam');
     return MaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: Constants.background),
       debugShowCheckedModeBanner: false,
