@@ -9,7 +9,12 @@ import '../../constants/consts.dart';
 import '../../services/favorite_api.dart';
 
 class FavoritePage extends StatefulWidget {
+<<<<<<< HEAD
   FavoritePage({Key? key}) : super(key: key);
+=======
+  const FavoritePage({Key? key}) : super(key: key);
+
+>>>>>>> master
   @override
   State<FavoritePage> createState() => _FavoritePageState();
 }

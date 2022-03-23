@@ -1,13 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:moviedb_api_app/model/movie_model.dart';
-import 'package:moviedb_api_app/screens/main_page.dart';
-import 'package:moviedb_api_app/services/character_api.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:moviedb_api_app/services/favorite_api.dart';
+import 'package:moviedb_api_app/firebase_options.dart';
+import 'package:moviedb_api_app/screens/authpage/login_page.dart';
 
 import 'constants/consts.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(scaffoldBackgroundColor: Constants.background),
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: const MainPage(),
+      home: LoginPage(),
     );
   }
 }

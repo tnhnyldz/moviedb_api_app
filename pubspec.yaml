@@ -36,7 +36,7 @@ dependencies:
   avatars: ^3.0.2
 
 
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.4
   dio: ^4.0.4
   http: ^0.13.4
   skeletons: ^0.0.3
@@ -44,12 +44,14 @@ dependencies:
   carousel_slider: ^4.0.0
   flutter_native_splash: ^2.1.1
   youtube_player_flutter: ^8.0.0
+  firebase_core: ^1.13.1
+  firebase_auth: ^3.3.11
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
 
 flutter_native_splash:  
   image: assets/movie.png
