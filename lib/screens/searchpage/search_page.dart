@@ -106,23 +106,27 @@ class _SearchPageState extends State<SearchPage> {
                                       );
                                     },
                                     child: SizedBox(
-                                      height: 120,
+                                      height: 150,
                                       child: Row(
                                         children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            child: activeSearch.backdropPath !=
-                                                    null
-                                                ? Image.network(
-                                                    'https://image.tmdb.org/t/p/w200' +
-                                                        activeSearch
-                                                            .backdropPath
-                                                            .toString(),
-                                                    fit: BoxFit.contain,
-                                                  )
-                                                : Image.asset(
-                                                    'assets/movie.png'),
+                                          AspectRatio(
+                                            aspectRatio: 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              child:
+                                                  activeSearch.backdropPath !=
+                                                          null
+                                                      ? Image.network(
+                                                          'https://image.tmdb.org/t/p/w200' +
+                                                              activeSearch
+                                                                  .backdropPath
+                                                                  .toString(),
+                                                          fit: BoxFit.cover,
+                                                        )
+                                                      : Image.asset(
+                                                          'assets/movie.png'),
+                                            ),
                                           ),
                                           const SizedBox(
                                             width: 10,

@@ -90,33 +90,29 @@ class MovieModel {
         voteCount: json["vote_count"] == null ? null : json["vote_count"],
       ); */
 
-  factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
-        adult: json["adult"] == null ? null : json["adult"],
-        backdropPath:
-            json["backdrop_path"] == null ? null : json["backdrop_path"],
-        genreIds: json["genre_ids"] == null
-            ? null
-            : List<int>.from(json["genre_ids"].map((x) => x)),
-        id: json["id"] == null ? null : json["id"],
-        originalLanguage: json["original_language"] == null
-            ? null
-            : json["original_language"],
-        originalTitle:
-            json["original_title"] == null ? null : json["original_title"],
-        overview: json["overview"] == null ? null : json["overview"],
-        popularity:
-            json["popularity"] == null ? null : json["popularity"].toDouble(),
-        posterPath: json["poster_path"] == null ? null : json["poster_path"],
-        releaseDate: json["release_date"] == null
-            ? null
-            : DateTime.parse(json["release_date"]),
-        title: json["title"] == null ? null : json["title"],
-        video: json["video"] == null ? null : json["video"],
-        voteAverage: json["vote_average"] == null
-            ? null
-            : json["vote_average"].toDouble(),
-        voteCount: json["vote_count"] == null ? null : json["vote_count"],
-      );
+  factory MovieModel.fromJson(Map<String, dynamic> json) {
+    String date = json["release_date"] ?? json["first_air_date"] ?? "";
+    return MovieModel(
+      adult: json["adult"],
+      backdropPath: json["backdrop_path"],
+      genreIds: json["genre_ids"] == null
+          ? null
+          : List<int>.from(json["genre_ids"].map((x) => x)),
+      id: json["id"],
+      originalLanguage: json["original_language"],
+      originalTitle: json["original_title"],
+      overview: json["overview"],
+      popularity:
+          json["popularity"] == null ? 0 : json["popularity"].toDouble(),
+      posterPath: json["poster_path"],
+      releaseDate: DateTime.parse(date.isEmpty ? "0000-01-01" : date),
+      title: json["title"],
+      video: json["video"],
+      voteAverage:
+          json["vote_average"] == null ? 0 : json["vote_average"].toDouble(),
+      voteCount: json["vote_count"] == null ? 0 : json["vote_count"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "adult": adult == null ? null : adult,
