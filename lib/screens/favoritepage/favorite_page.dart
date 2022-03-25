@@ -42,52 +42,84 @@ class _FavoritePageState extends State<FavoritePage> {
           return Container(
             color: Colors.black,
             alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(15.0),
-                      child: Image.network(
-                        'https://image.tmdb.org/t/p/w300' +
-                            model1.backdropPath.toString(),
-                      ),
+            // padding: const EdgeInsets.all(5.0),
+            child: SizedBox(
+              height: 150,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25.0),
+                      child: model1.backdropPath != null
+                          ? Image.network(
+                              'https://image.tmdb.org/t/p/w200' +
+                                  model1.backdropPath.toString(),
+                            )
+                          : Image.asset("assets/movie.png"),
                     ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
+                  ),
+                  const SizedBox(
+                    width: 10.0,
+                  ),
+                  Expanded(
+                    child: Text(
                       model1.title.toString().toUpperCase(),
                       style: const TextStyle(color: Colors.white),
-                    )
-                  ],
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Constants.background2),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  onPressed: () {
-                    setState(() {
-                      const snackBar = SnackBar(
-                        content: Text(
-                          'Film removed from Favorites',
-                          style: TextStyle(color: Colors.white),
+                  Container(
+                    width: 50,
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            const snackBar = SnackBar(
+                              content: Text(
+                                'Film removed from Favorites',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                            FavMovieApi.favList.removeLast();
+                          });
+                        },
+                        child: const Icon(
+                          Icons.bookmark_added_outlined,
+                          color: Colors.amber,
+                          size: 20.0,
                         ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      FavMovieApi.favList.removeLast();
-                    });
-                  },
-                  child: const Icon(
-                    Icons.bookmark_added_outlined,
-                    color: Colors.greenAccent,
-                    size: 40.0,
-                  ),
-                ),
-              ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              // TextButton(
+              //   style: ButtonStyle(
+              //     backgroundColor: MaterialStateProperty.all<Color>(
+              //         Constants.background2),
+              //   ),
+              //   onPressed: () {
+              //     setState(() {
+              //       const snackBar = SnackBar(
+              //         content: Text(
+              //           'Film removed from Favorites',
+              //           style: TextStyle(color: Colors.white),
+              //         ),
+              //       );
+              //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //       FavMovieApi.favList.removeLast();
+              //     });
+              //   },
+              //   child: const Icon(
+              //     Icons.bookmark_added_outlined,
+              //     color: Colors.amber,
+              //     size: 40.0,
+              //   ),
+              // ),
             ),
           );
         },

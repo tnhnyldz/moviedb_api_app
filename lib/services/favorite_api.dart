@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:moviedb_api_app/model/fav_movie_model.dart';
 
 class FavMovieApi {
@@ -13,9 +12,8 @@ class FavMovieApi {
 
     var result = await Dio().get(_url);
     var resultList = jsonDecode(jsonEncode(result.data));
-    debugPrint(resultList.toString());
+
     favList.add(FavMovieModel.fromJson(resultList));
-    debugPrint(favList.length.toString());
 
     return favList;
   }

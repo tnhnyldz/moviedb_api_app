@@ -55,7 +55,7 @@ class LoginPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20)),
                 onPressed: () {
                   if (authService.email != "" && authService.password != "") {
-                    authService.LoginUser(context);
+                    authService.loginUserEmailAndPassword(context);
                   }
                 },
                 child: const Text("Login")),
@@ -64,7 +64,14 @@ class LoginPage extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => RegisterPage()));
                 },
-                child: const Text("Don't  have an account? Register "))
+                child: const Text("Don't  have an account? Register ")),
+            ElevatedButton(
+                style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 20)),
+                onPressed: () {
+                  authService.googleIleGir(context);
+                },
+                child: const Text("Google Login")),
           ],
         ),
       ),
@@ -120,7 +127,7 @@ class RegisterPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20)),
                 onPressed: () {
                   if (authService.email != "" && authService.password != "") {
-                    authService.RegisterUser(context);
+                    authService.createUserEmailAndPassword(context);
                   }
                 },
                 child: const Text("Register")),
