@@ -1,5 +1,8 @@
+// ignore_for_file: use_function_type_syntax_for_parameters
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moviedb_api_app/screens/authpage/login_page.dart';
 import 'package:moviedb_api_app/screens/main_page.dart';
 
@@ -8,58 +11,93 @@ class AuthService {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  void LoginUser(context) async {
+  void changePassword(context) async {
+    await auth.currentUser!.updatePassword(password.text.toString());
+  }
+
+  void googleIleGir(context) async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  void DeleteUser(context) async {
+    if (auth.currentUser != null) {
+      await auth.currentUser!.delete();
+    } else {
+      const AlertDialog(
+        content: Text("Oturum Açın"),
+      );
+    }
+  }
+
+  void loginUserEmailAndPassword(context) async {
     try {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return const AlertDialog(
-              title: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          });
-      await auth
-          .signInWithEmailAndPassword(
-              email: email.text, password: password.text)
-          .then((value) => {
-                print("User is Logged In"),
-                print(value.user!.email.toString()),
-                Navigator.pop(context),
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (c) => const MainPage())),
-                //Navigator.pop(context)
-              });
+      var _userCr = await auth.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+
+      if (_userCr.user!.emailVerified == true) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const MainPage()));
+      } else {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return const AlertDialog(
+                title: Text("Hata"),
+                content: Text("Emailinizi Onaylayınız"),
+              );
+            });
+      }
     } catch (e) {
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text("Error"),
+              title: const Text("Hata"),
               content: Text(e.toString()),
             );
           });
     }
   }
 
-  void RegisterUser(context) async {
+  void createUserEmailAndPassword(context) async {
     try {
+      var _userCredential = await auth.createUserWithEmailAndPassword(
+          email: email.text, password: password.text);
+
+      if (!_userCredential.user!.emailVerified) {
+        await _userCredential.user!.sendEmailVerification();
+      }
+
       showDialog(
           context: context,
           builder: (context) {
-            return const AlertDialog(
-              title: Center(
-                child: CircularProgressIndicator(),
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: ((c) => LoginPage())));
+              },
+              child: const AlertDialog(
+                title: Text("Welcome MovieDB "),
+                content: Text("Mail adresinizi onaylayın."),
               ),
             );
           });
-      await auth
-          .createUserWithEmailAndPassword(
-              email: email.text, password: password.text)
-          .then(
-              (value) => {print("User Is Registered"), Navigator.pop(context)});
     } catch (e) {
-      print(e);
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("Hata"),
+              content: Text(e.toString()),
+            );
+          });
     }
   }
 

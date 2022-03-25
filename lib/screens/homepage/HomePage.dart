@@ -95,15 +95,20 @@ class _HomePageState extends State<HomePage> {
                                 alignment: Alignment.bottomLeft,
                                 children: <Widget>[
                                   ClipRRect(
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              3,
-                                      width: MediaQuery.of(context).size.width,
-                                      fit: BoxFit.cover,
-                                    ),
+                                    child: currentMovie5.backdropPath != null
+                                        ? CachedNetworkImage(
+                                            imageUrl:
+                                                'https://image.tmdb.org/t/p/original/${currentMovie5.backdropPath}',
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                3,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.asset("assets/movie.png"),
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(15),
                                     ),
