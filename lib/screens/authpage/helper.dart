@@ -29,6 +29,8 @@ class AuthService {
   void DeleteUser(context) async {
     if (auth.currentUser != null) {
       await auth.currentUser!.delete();
+       Navigator.push(context,
+                          MaterialPageRoute(builder: (c) => LoginPage()));
     } else {
       const AlertDialog(
         content: Text("Oturum Açın"),

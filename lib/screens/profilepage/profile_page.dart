@@ -77,8 +77,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     onPressed: () {
                       AuthService authSer = AuthService();
                       authSer.DeleteUser(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => LoginPage()));
                     },
                     child: const Icon(
                       Icons.delete_forever,
