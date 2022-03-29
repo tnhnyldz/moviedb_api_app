@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:moviedb_api_app/model/%C4%B1mage_model.dart';
 import 'package:moviedb_api_app/model/character_model.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/model/trailer_player_model.dart';
 import 'package:moviedb_api_app/screens/Widgets/youtube_player.dart';
 import 'package:moviedb_api_app/services/character_api.dart';
+import 'package:moviedb_api_app/services/images_api.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:moviedb_api_app/services/trailer_api.dart';
 
@@ -19,6 +21,7 @@ import '../../services/favorite_api.dart';
 class DetailsPage extends StatefulWidget {
   final MovieModel currentMovie;
   CharacterModel? currentCharacter;
+  Backdrop? currentBackdrop;
 
   DetailsPage(this.currentMovie, {Key? key}) : super(key: key);
   @override
@@ -29,6 +32,7 @@ class _DetailsPageState extends State<DetailsPage> {
   late Future<List<MovieModel>> _recList;
   late Future<List<CharacterModel>> _characterList;
   late Future<List<PlayerTrailer>> _playerList;
+  late Future<List<Backdrop>> _backdropList;
 
   late bool value = FavMovieApi.favList
       .any((element) => element.id == widget.currentMovie.id);
@@ -39,6 +43,7 @@ class _DetailsPageState extends State<DetailsPage> {
     _recList = MovieApi.getRecommendations(widget.currentMovie.id!);
     _characterList = CharacterApi.getCharacter(widget.currentMovie.id!);
     _playerList = TrailerApi.getTrailer(widget.currentMovie.id!);
+    _backdropList = ImageApi.getImages(widget.currentMovie.id!);
   }
 
   @override
@@ -105,6 +110,56 @@ class _DetailsPageState extends State<DetailsPage> {
                 Container(
                   margin: const EdgeInsets.only(left: 15.0),
                   child: Text(
+                    "Photos",
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        letterSpacing: .7,
+                        fontSize: 38,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 150,
+                  color: Colors.black,
+                  child: FutureBuilder<List<Backdrop>>(
+                    future: _backdropList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<Backdrop> _bckdroplst = snapshot.data!;
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.all(8.0),
+                          itemCount: _bckdroplst.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var currentPhoto = _bckdroplst[index];
+                            return Container(
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15.0),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/w500/' +
+                                      currentPhoto.filePath.toString(),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      } else if (snapshot.hasError) {
+                        return const Center(
+                          child: Text("data yok"),
+                        );
+                      } else {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                    },
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 15.0),
+                  child: Text(
                     "Trailer",
                     style: GoogleFonts.roboto(
                       textStyle: const TextStyle(
@@ -128,7 +183,9 @@ class _DetailsPageState extends State<DetailsPage> {
                             trailer: _plyrList.first,
                             cuurentMovie: widget.currentMovie);
                       } else {
-                        return const Center(child: CircularProgressIndicator());
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                     }),
                 const SizedBox(
