@@ -134,14 +134,41 @@ class _DetailsPageState extends State<DetailsPage> {
                           itemCount: _bckdroplst.length,
                           itemBuilder: (BuildContext context, int index) {
                             var currentPhoto = _bckdroplst[index];
-                            return Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15.0),
-                                child: Image.network(
-                                  'https://image.tmdb.org/t/p/w500/' +
-                                      currentPhoto.filePath.toString(),
+                            return GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return PageView.builder(
+                                        controller:
+                                            PageController(initialPage: index),
+                                        pageSnapping: true,
+                                        itemCount: _bckdroplst.length,
+                                        itemBuilder: (context, index) {
+                                          var currentPhoto1 =
+                                              _bckdroplst[index];
+                                          return ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            child: Image.network(
+                                              'https://image.tmdb.org/t/p/original/' +
+                                                  currentPhoto1.filePath
+                                                      .toString(),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  child: Image.network(
+                                    'https://image.tmdb.org/t/p/w500/' +
+                                        currentPhoto.filePath.toString(),
+                                  ),
                                 ),
                               ),
                             );
