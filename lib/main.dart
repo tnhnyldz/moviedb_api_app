@@ -24,7 +24,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // ImageApi.getImages(238);
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: Constants.background),
+      theme: ThemeData(
+          scaffoldBackgroundColor: Constants.background,
+          colorScheme: ColorScheme.dark(primary: Colors.amber)),
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       home: LoginPage(),

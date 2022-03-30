@@ -9,86 +9,100 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    authService.email.text = "ydcode1@gmail.com";
-    authService.password.text = "jklm997ask";
+    authService.email.text = "tunahanyildiz1560@gmail.com";
+    authService.password.text = "123456";
     return Scaffold(
-      backgroundColor: Constants.background2,
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                height: 200,
-                width: 200,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 175,
+                width: 175,
                 padding: const EdgeInsets.all(25),
-                child: Image.asset("assets/a.png")),
-            const Text(
-              'Login Your Account',
-              style: TextStyle(
-                  fontFamily: 'roboto',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: authService.email,
-              decoration: InputDecoration(
-                  focusColor: Colors.black,
-                  iconColor: Colors.red,
+                child: Image.asset("assets/a.png"),
+              ),
+              const Text(
+                'Login Your Account',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'roboto',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: authService.email,
+                decoration: InputDecoration(
+                  //iconColor: Colors.red,
+                  //suffixIconColor: Colors.white,
                   suffixIcon: Icon(Icons.mail),
                   labelText: "E-Mail",
-                  labelStyle: const TextStyle(fontSize: 18),
+                  labelStyle:
+                      const TextStyle(fontSize: 19, color: Colors.white),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15))),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextField(
-              controller: authService.password,
-              decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.key),
-                  labelText: "Password",
-                  labelStyle: const TextStyle(fontSize: 18),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15))),
-            ),
-            ElevatedButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20)),
-                onPressed: () {
-                  if (authService.email != "" && authService.password != "") {
-                    authService.loginUserEmailAndPassword(context);
-                  }
-                },
-                child: const Text("Login")),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()));
-                },
-                child: const Text(
-                  "Don't  have an account? Register ",
-                  style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                )),
-            InkWell(
-              onTap: () {
-                authService.googleIleGir(context);
-              },
-              child: Container(
-                height: 50,
-                width: 50,
-                child: Image.asset("assets/search.png"),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                controller: authService.password,
+                decoration: InputDecoration(
+                  suffixIcon: const Icon(Icons.key),
+                  labelText: "Password",
+                  labelStyle:
+                      const TextStyle(fontSize: 19, color: Colors.white),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                  style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 20)),
+                  onPressed: () {
+                    if (authService.email != "" && authService.password != "") {
+                      authService.loginUserEmailAndPassword(context);
+                    }
+                  },
+                  child: const Text("Login")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RegisterPage(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Don't  have an account? Register ",
+                    style: TextStyle(
+                        color: Colors.amber,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  )),
+              InkWell(
+                onTap: () {
+                  authService.googleIleGir(context);
+                },
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  child: Image.asset("assets/search.png"),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -102,7 +116,7 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
         child: Column(
@@ -122,10 +136,12 @@ class RegisterPage extends StatelessWidget {
             TextField(
               controller: authService.email,
               decoration: InputDecoration(
-                  labelText: "E-Mail",
-                  labelStyle: const TextStyle(fontSize: 18),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15))),
+                labelText: "E-Mail",
+                labelStyle: const TextStyle(fontSize: 19),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
             ),
             const SizedBox(
               height: 20,
@@ -133,14 +149,20 @@ class RegisterPage extends StatelessWidget {
             TextField(
               controller: authService.password,
               decoration: InputDecoration(
-                  labelText: "Password",
-                  labelStyle: const TextStyle(fontSize: 18),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15))),
+                labelText: "Password",
+                labelStyle: const TextStyle(
+                  fontSize: 19,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
             ),
             ElevatedButton(
                 style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20)),
+                  shadowColor: Colors.amber,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                ),
                 onPressed: () {
                   if (authService.email != "" && authService.password != "") {
                     authService.createUserEmailAndPassword(context);
@@ -148,11 +170,16 @@ class RegisterPage extends StatelessWidget {
                 },
                 child: const Text("Register")),
             TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                },
-                child: const Text("Already have an account? Login "))
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
+              },
+              child: const Text("Already have an account? Login "),
+            )
           ],
         ),
       ),
