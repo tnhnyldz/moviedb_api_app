@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moviedb_api_app/constants/consts.dart';
 import 'package:moviedb_api_app/screens/authpage/helper.dart';
 
 class LoginPage extends StatelessWidget {
@@ -11,13 +12,16 @@ class LoginPage extends StatelessWidget {
     authService.email.text = "ydcode1@gmail.com";
     authService.password.text = "jklm997ask";
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: Constants.background2,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+                padding: const EdgeInsets.all(25),
+                child: Image.asset("assets/a.png")),
             const Text(
               'Login Your Account',
               style: TextStyle(
@@ -45,6 +49,7 @@ class LoginPage extends StatelessWidget {
             TextField(
               controller: authService.password,
               decoration: InputDecoration(
+                  suffixIcon: Icon(Icons.key),
                   labelText: "Password",
                   labelStyle: const TextStyle(fontSize: 18),
                   border: OutlineInputBorder(
@@ -64,14 +69,23 @@ class LoginPage extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => RegisterPage()));
                 },
-                child: const Text("Don't  have an account? Register ")),
-            ElevatedButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20)),
-                onPressed: () {
-                  authService.googleIleGir(context);
-                },
-                child: const Text("Google Login")),
+                child: const Text(
+                  "Don't  have an account? Register ",
+                  style: TextStyle(
+                      color: Colors.amber,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                )),
+            InkWell(
+              onTap: () {
+                authService.googleIleGir(context);
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                child: Image.asset("assets/search.png"),
+              ),
+            )
           ],
         ),
       ),
