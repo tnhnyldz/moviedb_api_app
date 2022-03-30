@@ -11,13 +11,17 @@ class LoginPage extends StatelessWidget {
     authService.email.text = "ydcode1@gmail.com";
     authService.password.text = "jklm997ask";
     return Scaffold(
-      backgroundColor: Colors.amber,
+      backgroundColor: Colors.grey,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              child: Image.asset("assets/a.png"),
+            ),
             const Text(
               'Login Your Account',
               style: TextStyle(
@@ -65,13 +69,15 @@ class LoginPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => RegisterPage()));
                 },
                 child: const Text("Don't  have an account? Register ")),
-            ElevatedButton(
-                style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 20)),
-                onPressed: () {
-                  authService.googleIleGir(context);
-                },
-                child: const Text("Google Login")),
+            InkWell(
+              onTap: () {
+                authService.googleIleGir(context);
+              },
+              child: Container(
+                  height: 50,
+                  width: 50,
+                  child: Image.asset("assets/search.png")),
+            )
           ],
         ),
       ),
