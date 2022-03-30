@@ -105,10 +105,58 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 TextButton(
                     onPressed: () {
-                      AuthService authSer = AuthService();
-                      authSer.changePassword(context);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (c) => LoginPage()));
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Container(
+                                  height: 700,
+                                  color: Colors.white,
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Update Password',
+                                        style: TextStyle(
+                                            fontFamily: 'roboto',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextField(
+                                        controller:
+                                            widget.authProfile.newPassword,
+                                        decoration: InputDecoration(
+                                            focusColor: Colors.black,
+                                            iconColor: Colors.red,
+                                            suffixIcon: const Icon(Icons.mail),
+                                            labelText: "Password",
+                                            labelStyle:
+                                                const TextStyle(fontSize: 18),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15))),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () {},
+                                          child: Text("Update"))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          });
                     },
                     child: const Icon(
                       Icons.key,
@@ -135,15 +183,48 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 TextButton(
                     onPressed: () {
-                      showDialog(
-                          useSafeArea: true,
+                      showModalBottomSheet(
                           context: context,
                           builder: (context) {
-                            return Container(
-                              color: Colors.white,
-                              height: 100,
-                              width: 100,
-                              child: Center(child: Text("Email")),
+                            return GestureDetector(
+                              onTap: () {
+                                FocusScope.of(context).unfocus();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Container(
+                                  height: 700,
+                                  color: Colors.white,
+                                  width: double.infinity,
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      const Text(
+                                        'Update E-Mail',
+                                        style: TextStyle(
+                                            fontFamily: 'roboto',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 25),
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      TextField(
+                                        decoration: InputDecoration(
+                                            focusColor: Colors.black,
+                                            iconColor: Colors.red,
+                                            suffixIcon: const Icon(Icons.mail),
+                                            labelText: "E-Mail",
+                                            labelStyle:
+                                                const TextStyle(fontSize: 18),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15))),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             );
                           });
                     },

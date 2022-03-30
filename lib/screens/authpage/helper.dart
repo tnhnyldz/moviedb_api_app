@@ -10,9 +10,12 @@ class AuthService {
   final auth = FirebaseAuth.instance;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController newPassword = TextEditingController();
 
   void changePassword(context) async {
-    await auth.currentUser!.updatePassword(password.text.toString());
+    try {
+      await auth.currentUser!.updatePassword(password.text.toString());
+    } catch (e) {}
   }
 
   void googleIleGir(context) async {

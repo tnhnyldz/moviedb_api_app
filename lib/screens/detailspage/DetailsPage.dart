@@ -205,6 +205,18 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
                 Container(
+                  child: Text(
+                    "Fotografy",
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        letterSpacing: .7,
+                        fontSize: 38,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
                   margin: const EdgeInsets.only(left: 15.0),
                   child: Text(
                     "Recommended",
