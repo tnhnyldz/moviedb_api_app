@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:moviedb_api_app/model/%C4%B1mage_model.dart';
+
+import '../model/image_model.dart';
+
 
 class ImageApi {
   static Future<List<Backdrop>> getImages(int id) async {

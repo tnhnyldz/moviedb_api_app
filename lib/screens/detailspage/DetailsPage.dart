@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:moviedb_api_app/model/%C4%B1mage_model.dart';
 import 'package:moviedb_api_app/model/character_model.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/model/trailer_player_model.dart';
@@ -16,6 +15,7 @@ import 'package:moviedb_api_app/services/moviedb_api.dart';
 import 'package:moviedb_api_app/services/trailer_api.dart';
 
 import '../../constants/consts.dart';
+import '../../model/image_model.dart';
 import '../../services/favorite_api.dart';
 
 class DetailsPage extends StatefulWidget {
