@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
-import 'package:tmdb_api/tmdb_api.dart';
-import 'package:http/http.dart' as http;
-import 'dart:math';
+
 
 class MovieApi {
   // List<String> list = ['popular', 'top_rated','upcoming'];

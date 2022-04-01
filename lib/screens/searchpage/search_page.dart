@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/screens/Widgets/custom_app_bar.dart';
-import 'package:moviedb_api_app/screens/detailspage/DetailsPage.dart';
+import 'package:moviedb_api_app/screens/detailspage/details_page.dart';
 import 'package:moviedb_api_app/services/search_api.dart';
 
 class SearchPage extends StatefulWidget {
@@ -55,7 +55,7 @@ class _SearchPageState extends State<SearchPage> {
                             hintText: 'Search',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide.none)),
+                                borderSide: BorderSide.none),),
                       ),
                     ),
                   ],
@@ -68,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<MovieModel> _srcList = snapshot.data!;
-                  ScrollController controller = ScrollController();
+                  // ScrollController controller = ScrollController();
                   return ListView.builder(
                     // physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,

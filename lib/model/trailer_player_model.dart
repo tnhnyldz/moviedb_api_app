@@ -35,30 +35,30 @@ class PlayerTrailer {
   String? id;
 
   factory PlayerTrailer.fromJson(Map<String, dynamic> json) => PlayerTrailer(
-        iso6391: json["iso_639_1"] ?? null,
-        iso31661: json["iso_3166_1"] ?? null,
-        name: json["name"] ?? null,
-        key: json["key"] ?? null,
-        site: json["site"] ?? null,
-        size: json["size"] ?? null,
-        type: json["type"] ?? null,
-        official: json["official"] ?? null,
+        iso6391: json["iso_639_1"],
+        iso31661: json["iso_3166_1"],
+        name: json["name"],
+        key: json["key"],
+        site: json["site"],
+        size: json["size"],
+        type: json["type"],
+        official: json["official"],
         publishedAt: json["published_at"] == null
             ? null
             : DateTime.parse(json["published_at"]),
-        id: json["id"] ?? null,
+        id: json["id"],
       );
 
   Map<String, dynamic> toJson() => {
-        "iso_639_1": iso6391 ?? null,
-        "iso_3166_1": iso31661 ?? null,
-        "name": name ?? null,
-        "key": key ?? null,
-        "site": site ?? null,
-        "size": size ?? null,
-        "type": type ?? null,
-        "official": official ?? null,
+        "iso_639_1": iso6391,
+        "iso_3166_1": iso31661,
+        "name": name,
+        "key": key,
+        "site": site,
+        "size": size,
+        "type": type,
+        "official": official,
         //"published_at": publishedAt == null ? null : publishedAt.toIso8601String(),
-        "id": id ?? null,
+        "id": id,
       };
 }

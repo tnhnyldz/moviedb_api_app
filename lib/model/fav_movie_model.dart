@@ -7,12 +7,12 @@ import 'dart:convert';
 FavMovieModel favMovieModelFromJson(String str) =>
     FavMovieModel.fromJson(json.decode(str));
 
-String favMovieModelToJson(FavMovieModel data) => json.encode(data.toJson());
+String favMovieModelToJson(FavMovieModel data) => json.encode(data.toJson(),);
 
 class FavMovieModel {
   bool? adult;
   String? backdropPath;
-  dynamic? belongsToCollection;
+  dynamic belongsToCollection;
   int? budget;
   List<Genre>? genres;
   String? homepage;
@@ -65,51 +65,39 @@ class FavMovieModel {
   });
 
   factory FavMovieModel.fromJson(Map<String, dynamic> json) => FavMovieModel(
-        adult: json["adult"] == null ? null : json["adult"],
+        adult: json["adult"],
         backdropPath:
-            json["backdrop_path"] == null ? null : json["backdrop_path"],
+            json["backdrop_path"],
         belongsToCollection: json["belongs_to_collection"],
-        budget: json["budget"] == null ? null : json["budget"],
-        genres: json["genres"] == null
-            ? null
-            : List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
-        homepage: json["homepage"] == null ? null : json["homepage"],
-        id: json["id"] == null ? null : json["id"],
-        imdbId: json["imdb_id"] == null ? null : json["imdb_id"],
-        originalLanguage: json["original_language"] == null
-            ? null
-            : json["original_language"],
+        budget: json["budget"] ,
+        genres:List<Genre>.from(json["genres"].map((x) => Genre.fromJson(x))),
+        homepage: json["homepage"],
+        id: json["id"],
+        imdbId: json["imdb_id"],
+        originalLanguage: json["original_language"],
         originalTitle:
-            json["original_title"] == null ? null : json["original_title"],
-        overview: json["overview"] == null ? null : json["overview"],
-        popularity:
-            json["popularity"] == null ? null : json["popularity"].toDouble(),
-        posterPath: json["poster_path"] == null ? null : json["poster_path"],
-        productionCompanies: json["production_companies"] == null
-            ? null
-            : List<ProductionCompany>.from(json["production_companies"]
+            json["original_title"],
+        overview: json["overview"],
+        popularity:double.tryParse(json["popularity"]) ?? 0,
+          
+        posterPath: json["poster_path"],
+        productionCompanies: List<ProductionCompany>.from(json["production_companies"]
                 .map((x) => ProductionCompany.fromJson(x))),
-        productionCountries: json["production_countries"] == null
-            ? null
-            : List<ProductionCountry>.from(json["production_countries"]
+        productionCountries: List<ProductionCountry>.from(json["production_countries"]
                 .map((x) => ProductionCountry.fromJson(x))),
-        releaseDate: json["release_date"] == null
-            ? null
-            : DateTime.parse(json["release_date"]),
-        revenue: json["revenue"] == null ? null : json["revenue"],
-        runtime: json["runtime"] == null ? null : json["runtime"],
+        releaseDate: DateTime.parse(json["release_date"]),
+        revenue: json["revenue"],
+        runtime: json["runtime"],
         spokenLanguages: json["spoken_languages"] == null
             ? null
             : List<SpokenLanguage>.from(json["spoken_languages"]
                 .map((x) => SpokenLanguage.fromJson(x))),
-        status: json["status"] == null ? null : json["status"],
-        tagline: json["tagline"] == null ? null : json["tagline"],
-        title: json["title"] == null ? null : json["title"],
-        video: json["video"] == null ? null : json["video"],
-        voteAverage: json["vote_average"] == null
-            ? null
-            : json["vote_average"].toDouble(),
-        voteCount: json["vote_count"] == null ? null : json["vote_count"],
+        status: json["status"],
+        tagline: json["tagline"] ,
+        title: json["title"] ,
+        video: json["video"] ,
+        voteAverage:json["vote_average"].toDouble(),
+        voteCount: json["vote_count"],
       );
 
   Map<String, dynamic> toJson() => {

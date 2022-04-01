@@ -1,4 +1,3 @@
-// ignore_for_file: unused_local_variable, must_be_immutable
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +19,9 @@ import '../../services/favorite_api.dart';
 
 class DetailsPage extends StatefulWidget {
   final MovieModel currentMovie;
-  CharacterModel? currentCharacter;
-  Backdrop? currentBackdrop;
+  
 
-  DetailsPage(this.currentMovie, {Key? key}) : super(key: key);
+  const DetailsPage(this.currentMovie, {Key? key}) : super(key: key);
   @override
   State<DetailsPage> createState() => _DetailsPageState();
 }
@@ -48,6 +46,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: cache kısmı yapılacak 
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -105,7 +104,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 Container(
                   height: 200,
                   color: Colors.black,
-                  child: RateBarDetails(),
+                  child: rateBarDetails(),
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 15.0),
@@ -315,7 +314,7 @@ class _DetailsPageState extends State<DetailsPage> {
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             var currentFilm = _listem[index];
-                            return RecList(context, currentFilm);
+                            return recList(context, currentFilm);
                           },
                           itemCount: 10,
                         );
@@ -339,7 +338,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  Row RateBarDetails() {
+  Row rateBarDetails() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -492,7 +491,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  SizedBox RecList(BuildContext context, MovieModel currentFilm) {
+  SizedBox recList(BuildContext context, MovieModel currentFilm) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * .40,
       child: Column(

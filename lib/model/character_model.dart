@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-
 CharacterModel characterModelFromJson(String str) =>
     CharacterModel.fromJson(json.decode(str));
 

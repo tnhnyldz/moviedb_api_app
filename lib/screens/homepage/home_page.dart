@@ -3,13 +3,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
-import 'package:moviedb_api_app/screens/Widgets/popularRow.dart';
+import 'package:moviedb_api_app/screens/Widgets/popular_row.dart';
 import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
 import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
 import 'package:moviedb_api_app/services/moviedb_api.dart';
 
 import '../Widgets/custom_app_bar.dart';
-import '../detailspage/DetailsPage.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -26,10 +26,10 @@ class _HomePageState extends State<HomePage> {
   bool state = false;
   List<String> list = ['popular', 'top_rated', 'upcoming'];
 
-  final _isLoading = true;
+  
   int currentIndex = 0;
 
-  final screens = [const HomePage(), FavoritePage(), ProfilePage()];
+  final screens = const [ HomePage(), FavoritePage(), ProfilePage()];
 
   void getApi() async {
     _filmListFuture = await MovieApi.getFilms(list[0]);

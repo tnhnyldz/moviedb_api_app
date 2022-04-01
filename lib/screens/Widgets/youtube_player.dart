@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moviedb_api_app/model/movie_model.dart';
 import 'package:moviedb_api_app/model/trailer_player_model.dart';
-import 'package:moviedb_api_app/services/moviedb_api.dart';
-import 'package:moviedb_api_app/services/trailer_api.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlayerFragman extends StatefulWidget {
@@ -28,11 +26,13 @@ class _PlayerFragmanState extends State<PlayerFragman> {
         flags: const YoutubePlayerFlags(autoPlay: false, mute: false));
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        child: YoutubePlayer(
-      controller: _youtubePlayerController,
-      showVideoProgressIndicator: true,
-    ));
+    return SizedBox(
+      child: YoutubePlayer(
+        controller: _youtubePlayerController,
+        showVideoProgressIndicator: true,
+      ),
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moviedb_api_app/constants/consts.dart';
-import 'package:moviedb_api_app/screens/detailspage/DetailsPage.dart';
+import 'package:moviedb_api_app/screens/detailspage/details_page.dart';
 
 import '../../model/movie_model.dart';
 
@@ -65,7 +65,7 @@ class _HorizontalWidgetState extends State<HorizontalWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Text(
                       currentMovie.title.toString(),
                       style: const TextStyle(

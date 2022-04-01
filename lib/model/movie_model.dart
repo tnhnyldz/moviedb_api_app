@@ -6,7 +6,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 
 MovieModel movieModelFromJson(String str) =>
     MovieModel.fromJson(json.decode(str));

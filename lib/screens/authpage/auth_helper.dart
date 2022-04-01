@@ -14,7 +14,9 @@ class AuthService {
 
   void changePassword(context) async {
     try {
-      await auth.currentUser!.updatePassword(password.text.toString());
+      await auth.currentUser!.updatePassword(
+        password.text.toString(),
+      );
     } catch (e) {}
   }
 
@@ -29,10 +31,15 @@ class AuthService {
     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  void DeleteUser(context) async {
+  void deleteUser(context) async {
     if (auth.currentUser != null) {
       await auth.currentUser!.delete();
-      Navigator.push(context, MaterialPageRoute(builder: (c) => LoginPage()));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (c) => LoginPage(),
+        ),
+      );
     } else {
       const AlertDialog(
         content: Text("Oturum Açın"),
@@ -47,7 +54,11 @@ class AuthService {
 
       if (_userCr.user!.emailVerified == true) {
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => const MainPage()));
+          context,
+          MaterialPageRoute(
+            builder: (c) => const MainPage(),
+          ),
+        );
       } else {
         showDialog(
             context: context,
@@ -60,13 +71,14 @@ class AuthService {
       }
     } catch (e) {
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text("Hata"),
-              content: Text(e.toString()),
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Hata"),
+            content: Text(e.toString()),
+          );
+        },
+      );
     }
   }
 
@@ -85,7 +97,11 @@ class AuthService {
             return GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: ((c) => LoginPage())));
+                  context,
+                  MaterialPageRoute(
+                    builder: ((c) => LoginPage()),
+                  ),
+                );
               },
               child: const AlertDialog(
                 title: Text("Welcome MovieDB "),
@@ -95,19 +111,29 @@ class AuthService {
           });
     } catch (e) {
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text("Hata"),
-              content: Text(e.toString()),
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Hata"),
+            content: Text(
+              e.toString(),
+            ),
+          );
+        },
+      );
     }
   }
 
   void logOutUser(context) async {
     await auth.signOut();
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (c) => LoginPage()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (c) => LoginPage(),
+        ),
+        (route) => false);
   }
 }
+
+
+

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_api_app/constants/consts.dart';
 import 'package:moviedb_api_app/screens/favoritepage/favorite_page.dart';
-import 'package:moviedb_api_app/screens/homepage/HomePage.dart';
+import 'package:moviedb_api_app/screens/homepage/home_page.dart';
 import 'package:moviedb_api_app/screens/profilepage/profile_page.dart';
 import 'package:moviedb_api_app/screens/searchpage/search_page.dart';
 
@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
-  var screens = [HomePage(), FavoritePage(), SearchPage(), ProfilePage()];
+  var screens = const [HomePage(), FavoritePage(), SearchPage(), ProfilePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

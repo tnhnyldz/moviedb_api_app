@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moviedb_api_app/constants/consts.dart';
-import 'package:moviedb_api_app/screens/authpage/helper.dart';
+import 'package:moviedb_api_app/screens/authpage/auth_helper.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -42,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 decoration: InputDecoration(
                   //iconColor: Colors.red,
                   //suffixIconColor: Colors.white,
-                  suffixIcon: Icon(Icons.mail),
+                  suffixIcon: const Icon(Icons.mail),
                   labelText: "E-Mail",
                   labelStyle:
                       const TextStyle(fontSize: 19, color: Colors.white),
@@ -70,7 +69,7 @@ class LoginPage extends StatelessWidget {
                   style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(horizontal: 20)),
                   onPressed: () {
-                    if (authService.email != "" && authService.password != "") {
+                    if (authService.email.text.isNotEmpty && authService.password.text.isNotEmpty) {
                       authService.loginUserEmailAndPassword(context);
                     }
                   },
@@ -95,7 +94,7 @@ class LoginPage extends StatelessWidget {
                 onTap: () {
                   authService.googleIleGir(context);
                 },
-                child: Container(
+                child: SizedBox(
                   height: 50,
                   width: 50,
                   child: Image.asset("assets/search.png"),
@@ -164,7 +163,7 @@ class RegisterPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                 ),
                 onPressed: () {
-                  if (authService.email != "" && authService.password != "") {
+                  if (authService.email.text.isNotEmpty && authService.password.text.isNotEmpty) {
                     authService.createUserEmailAndPassword(context);
                   }
                 },

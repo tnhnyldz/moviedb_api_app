@@ -1,15 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:moviedb_api_app/model/fav_movie_model.dart';
-
-import 'package:moviedb_api_app/screens/Widgets/custom_app_bar.dart';
-
-import '../../constants/consts.dart';
 import '../../services/favorite_api.dart';
 
 class FavoritePage extends StatefulWidget {
-  FavoritePage({Key? key}) : super(key: key);
+ const  FavoritePage({Key? key}) : super(key: key);
   @override
   State<FavoritePage> createState() => _FavoritePageState();
 }
@@ -70,7 +65,7 @@ class _FavoritePageState extends State<FavoritePage> {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 50,
                     child: Center(
                       child: TextButton(

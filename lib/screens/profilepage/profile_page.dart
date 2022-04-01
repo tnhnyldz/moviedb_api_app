@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_api_app/screens/Widgets/custom_app_bar.dart';
-import 'package:moviedb_api_app/screens/authpage/helper.dart';
-import 'package:moviedb_api_app/screens/authpage/login_page.dart';
+import 'package:moviedb_api_app/screens/authpage/auth_helper.dart';
 
 class ProfilePage extends StatefulWidget {
-  final AuthService authProfile = AuthService();
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final AuthService authProfile = AuthService();
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
@@ -21,8 +22,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
             Text(
-              "Welcome " +
-                  widget.authProfile.auth.currentUser!.email.toString(),
+              "Welcome " + authProfile.auth.currentUser!.email.toString(),
               style: const TextStyle(
                   color: Colors.white,
                   fontFamily: 'Roboto',
@@ -76,7 +76,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 TextButton(
                     onPressed: () {
                       AuthService authSer = AuthService();
-                      authSer.DeleteUser(context);
+                      authSer.deleteUser(context);
                     },
                     child: const Icon(
                       Icons.delete_forever,
@@ -130,25 +130,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                         height: 20,
                                       ),
                                       TextField(
-                                        controller:
-                                            widget.authProfile.newPassword,
+                                        controller: authProfile.newPassword,
                                         decoration: InputDecoration(
-                                            focusColor: Colors.black,
-                                            iconColor: Colors.red,
-                                            suffixIcon: const Icon(Icons.mail),
-                                            labelText: "Password",
-                                            labelStyle:
-                                                const TextStyle(fontSize: 18),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15))),
+                                          focusColor: Colors.black,
+                                          iconColor: Colors.red,
+                                          suffixIcon: const Icon(Icons.mail),
+                                          labelText: "Password",
+                                          labelStyle:
+                                              const TextStyle(fontSize: 18),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                        ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 10,
                                       ),
                                       ElevatedButton(
-                                          onPressed: () {},
-                                          child: Text("Update"))
+                                        onPressed: () {},
+                                        child: const Text("Update"),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -180,57 +182,60 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: Container(
-                                  height: 700,
-                                  color: Colors.white,
-                                  width: double.infinity,
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    children: [
-                                      const Text(
-                                        'Update E-Mail',
-                                        style: TextStyle(
-                                            fontFamily: 'roboto',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25),
+                  onPressed: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Container(
+                                height: 700,
+                                color: Colors.white,
+                                width: double.infinity,
+                                alignment: Alignment.center,
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      'Update E-Mail',
+                                      style: TextStyle(
+                                          fontFamily: 'roboto',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 25),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    TextField(
+                                      decoration: InputDecoration(
+                                        focusColor: Colors.black,
+                                        iconColor: Colors.red,
+                                        suffixIcon: const Icon(Icons.mail),
+                                        labelText: "E-Mail",
+                                        labelStyle:
+                                            const TextStyle(fontSize: 18),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                            focusColor: Colors.black,
-                                            iconColor: Colors.red,
-                                            suffixIcon: const Icon(Icons.mail),
-                                            labelText: "E-Mail",
-                                            labelStyle:
-                                                const TextStyle(fontSize: 18),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15))),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            );
-                          });
-                    },
-                    child: const Icon(
-                      Icons.mail,
-                      color: Colors.white,
-                      size: 40,
-                    ))
+                            ),
+                          );
+                        });
+                  },
+                  child: const Icon(
+                    Icons.mail,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                )
               ],
             ),
           ],
