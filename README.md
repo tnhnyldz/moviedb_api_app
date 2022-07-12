@@ -1,7 +1,7 @@
 
 # MovieDB App
 
-This project was developed in 1.5 months.
+This project was developed in 1.5 months with fluuter, firebase and movieDB APi. It brings movies from api and uses them in the application. The user can log in and add their favorite movies to the list. It can search between movies. Can see the details of the movies
 
 
 
